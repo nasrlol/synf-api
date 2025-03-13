@@ -1,59 +1,70 @@
-# SynfUi
+# SYNF - Frontend (Synf-UI)  
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.1.
+## About  
 
-## Development server
+This is the frontend of the **SYNF** project, also referred to as **Synf-UI**. It is built using the **Angular** framework to provide a dynamic and efficient user experience.  
 
-To start a local development server, run:
+## Features  
 
+- Built with **Angular** for modular and scalable architecture  
+- Responsive and optimized UI/UX  
+- Designed for seamless integration with the SYNF backend  
+- Follows best practices for performance and maintainability  
+
+## Prerequisites  
+
+Ensure you have the following installed:  
+
+- **Node.js** (LTS recommended) → [Download here](https://nodejs.org/)  
+- **Angular CLI** → Install globally with:  
+  ```bash
+  npm install -g @angular/cli
+  ```  
+
+## Installation  
+
+1. Clone the repository:  
+   ```bash
+   git clone https://github.com/yourusername/synf-ui.git
+   cd synf-ui
+   ```  
+
+2. Install dependencies:  
+   ```bash
+   npm install
+   ```  
+
+## Running the Project  
+
+To start a local development server with live reloading:  
 ```bash
 ng serve
+```  
+Then, open your browser and navigate to:  
 ```
+http://localhost:4200
+```  
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Building for Production  
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
+To generate an optimized production build:  
 ```bash
-ng generate component component-name
-```
+ng build --prod
+```  
+The output will be in the `dist/` folder, ready for deployment.  
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Contributing  
 
-```bash
-ng generate --help
-```
+Contributions are welcome! To contribute:  
 
-## Building
+1. Fork the repository  
+2. Create a feature branch (`git checkout -b feature-branch`)  
+3. Commit your changes (`git commit -m "Add new feature"`)  
+4. Push to your branch (`git push origin feature-branch`)  
+5. Open a pull request  
 
-To build the project run:
+## License  
 
-```bash
-ng build
-```
+This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for more details.  
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
