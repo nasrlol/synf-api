@@ -1,0 +1,135 @@
+/* Root Variables & Global Styles */
+:root {
+	font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+	font-weight: 400;
+	line-height: 1.5;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	/* Colors */
+	color-scheme: light dark;
+	color: rgba(255, 255, 255, 0.87);
+	background-color: #242424;
+}
+
+/* Typography */
+body {
+	margin: 0;
+	padding: 0;
+	font-family: inherit;
+	line-height: inherit;
+	color: inherit;
+	background-color: inherit;
+}
+
+a {
+	color: #213547;
+	text-transform: uppercase;
+	text-decoration: none;
+	letter-spacing: 0.15em;
+
+	display: inline-block;
+	padding: 15px 20px;
+	position: relative;
+}
+
+a::after {
+	background: none repeat scroll 0 0 transparent;
+	bottom: 0;
+	content: "";
+	display: block;
+	height: 2px;
+	left: 50%;
+	position: absolute;
+	background: #fff;
+	transition: width 0.3s ease 0s, left 0.3s ease 0s;
+	width: 0;
+}
+
+a:hover:after {
+	width: 100%;
+	left: 0;
+}
+button {
+	background-color: #fff;
+	border: 0 solid #e2e8f0;
+	border-radius: 1.5rem;
+	box-sizing: border-box;
+	color: #1e293b;
+	cursor: pointer;
+	display: inline-block;
+	font-weight: 600;
+	line-height: 1;
+	padding: 1rem 1.6rem;
+	text-align: center;
+	text-decoration: none #0d172a solid;
+	text-decoration-thickness: auto;
+	transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+	box-shadow: 0px 1px 2px rgba(166, 175, 195, 0.25);
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: manipulation;
+}
+
+button:hover {
+	background-color: #1e293b;
+	color: #fff;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+h1 {
+	line-height: 1.4;
+}
+
+/* Layout & Structure */
+header {
+	background-color: antiquewhite;
+	border-radius: 30px;
+	margin-bottom: 30px;
+	padding: 20px 0;
+}
+
+header > ul {
+	display: flex;
+	justify-content: space-around;
+	font-size: larger;
+}
+
+main {
+	background-color: antiquewhite;
+	color: #213547;
+	padding: 30px;
+	min-height: 100vh;
+	border-radius: 30px;
+	margin: 0;
+}
+
+footer {
+	background-color: antiquewhite;
+	color: #213547;
+	padding: 10px;
+	margin-top: 10px;
+	border-radius: 30px;
+	text-align: center;
+}
+
+/* Responsive Design */
+@media (prefers-color-scheme: light) {
+	:root {
+		color: #213547;
+		background-color: #ffffff;
+	}
+}
+@media (min-width: 768px) {
+	button {
+		font-size: 1.125rem;
+		padding: 1rem 2rem;
+	}
+}
