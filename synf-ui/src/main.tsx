@@ -7,8 +7,7 @@ const rootElement = document.getElementById("root") as HTMLElement;
 const root = ReactDOM.createRoot(rootElement);
 
 root.render(
-    <React.StrictMode>
-        <App/> {/* Render the main App component */}
-    </React.StrictMode>
+	<React.StrictMode>
+		<App /> {/* Render the main App component */}
+	</React.StrictMode>
 );
-

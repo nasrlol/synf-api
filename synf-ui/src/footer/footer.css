@@ -1,0 +1,10 @@
+/* footer styles for footer.tsx */
+
+footer {
+	background-color: antiquewhite;
+	color: #213547;
+	padding: 10px;
+	margin-top: 10px;
+	border-radius: 30px;
+	text-align: center;
+}

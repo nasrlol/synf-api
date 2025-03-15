@@ -1,0 +1,14 @@
+/* footer styles for footer.tsx */
+/* Layout & Structure */
+header {
+	background-color: antiquewhite;
+	border-radius: 30px;
+	margin-bottom: 30px;
+	padding: 20px 0;
+}
+
+header > ul {
+	display: flex;
+	justify-content: space-around;
+	font-size: larger;
+}
