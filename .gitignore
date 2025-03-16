@@ -49,7 +49,7 @@
 modules.order
 Module.symvers
 
-.idea
-.vscode
+*.idea
+*.vscode
 Mkfile.old
 dkms.conf
