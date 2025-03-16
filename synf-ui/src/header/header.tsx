@@ -1,19 +1,23 @@
+import { Link } from "react-router-dom"
+import  link from "../components/link/link.tsx"
 import "./header.css";
 
-export default function header() {
+function header() {
 	return (
 		<header>
 			<ul>
 				<li>
-					<a href={"/"}>home</a>
+					{link("/"), "Home"}		
 				</li>
 				<li>
-					<a href={"install_guide"}>install</a>
+					<Link className="link" to="../pages/installation_page/install.tsx">Install</Link>
 				</li>
 				<li>
-					<a href={"mysynf_dashboard"}>mySYNF</a>
+					<Link className="link" to="../pages/login_page/login.tsx">mySynf</Link>
 				</li>
 			</ul>
 		</header>
 	);
 }
+
+export default header;

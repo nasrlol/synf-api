@@ -1,0 +1,11 @@
+
+
+
+section > article {
+	margin: 20px auto 20px auto;
+	padding: 30px;
+
+	border: 1px solid #242424;
+	max-width: 50%;
+	border-radius: 30px;
+}

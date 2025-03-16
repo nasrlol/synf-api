@@ -1,6 +1,6 @@
 import "./login.css";
-import header from "../header/header.tsx";
-import footer from "../footer/footer.tsx";
+import header from "../../header/header.tsx";
+import footer from "../../footer/footer.tsx";
 
 export function loginForms() {
 	return (

@@ -24,62 +24,6 @@ body {
 	background-color: inherit;
 }
 
-a {
-	color: #213547;
-	text-transform: uppercase;
-	text-decoration: none;
-	letter-spacing: 0.15em;
-
-	display: inline-block;
-	padding: 15px 20px;
-	position: relative;
-}
-
-a::after {
-	bottom: 0;
-	content: "";
-	display: block;
-	height: 2px;
-	left: 50%;
-	position: absolute;
-	background: #fff;
-	transition: width 0.3s ease 0s, left 0.3s ease 0s;
-	width: 0;
-}
-
-a:hover:after {
-	width: 100%;
-	left: 0;
-}
-
-button {
-	background-color: #fff;
-	border: 0 solid #e2e8f0;
-	border-radius: 1.5rem;
-	box-sizing: border-box;
-	margin-top: 10%;
-	color: #1e293b;
-	cursor: pointer;
-	display: inline-block;
-	font-size: larger;
-	font-weight: 600;
-	line-height: 1;
-	padding: 1rem 1.6rem;
-	text-align: center;
-	text-decoration: none #0d172a solid;
-	text-decoration-thickness: auto;
-	transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
-	box-shadow: 0 1px 2px rgba(166, 175, 195, 0.25);
-	user-select: none;
-	-webkit-user-select: none;
-	touch-action: manipulation;
-}
-
-button:hover {
-	background-color: #1e293b;
-	color: #fff;
-}
-
 ul {
 	list-style-type: none;
 	margin: 0;
@@ -87,15 +31,6 @@ ul {
 }
 
 h1 {
-	margin: 0;
-}
-
-main {
-	background-color: antiquewhite;
-	color: #213547;
-	padding: 30px;
-	min-height: 50vh;
-	border-radius: 30px;
 	margin: 0;
 }
 

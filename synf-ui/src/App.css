@@ -8,12 +8,11 @@
 #root h1 {
 	font-size: 3rem;
 }
-
-section > article {
-	margin: 20px auto 20px auto;
+main {
+	background-color: antiquewhite;
+	color: #213547;
 	padding: 30px;
-
-	border: 1px solid #242424;
-	max-width: 50%;
+	min-height: 50vh;
 	border-radius: 30px;
+	margin: 0;
 }
