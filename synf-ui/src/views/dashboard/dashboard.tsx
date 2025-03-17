@@ -4,7 +4,12 @@ function dashboard()
 {
 	return (
 		<>
-			<p>DASHBOARD</p>
+			<section>
+				FIRST SECTION 
+			</section>
+				<section>
+				SECOND SECTION 
+			</section>
 		</>
 	)
 }
