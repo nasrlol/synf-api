@@ -13,7 +13,7 @@ export function loginForms() {
 	);
 }
 
-export function loginPage() {
+function loginPage() {
 	return (
 		<>
 			{header()}
@@ -22,3 +22,5 @@ export function loginPage() {
 		</>
 	);
 }
+
+export default loginPage;
