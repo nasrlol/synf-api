@@ -30,7 +30,7 @@ export function loginForms() {
 function loginPage() {
 	return (
 		<>
-		 { loginForms() }
+			{loginForms()}
 		</>
 	);
 }
