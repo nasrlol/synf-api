@@ -5,10 +5,10 @@ function dashboard()
 	return (
 		<>
 			<section>
-				FIRST SECTION 
+				<p>CPU</p>
 			</section>
-				<section>
-				SECOND SECTION 
+			<section>
+				<p>GPU</p>
 			</section>
 		</>
 	)
