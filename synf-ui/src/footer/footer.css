@@ -19,6 +19,6 @@ a {
 }
 
 a:hover::before {
-	transform-origin: left;
-	transform: scaleX(1);
+    transform-origin: left;
+    transform: scaleX(1);
 }
