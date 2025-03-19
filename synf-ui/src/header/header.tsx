@@ -8,7 +8,7 @@ function header() {
                 <ul>
                     <li><Link to="/">Home</Link></li>
                     <li><Link to="/install">Install</Link></li>
-                    <li><Link to="/dashboard">MYSYNF</Link></li>
+                    <li><Link to="/login">MYSYNF</Link></li>
                 </ul>
             </nav>
         </header>

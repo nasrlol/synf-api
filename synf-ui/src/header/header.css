@@ -1,23 +1,23 @@
 /* footer styles for footer.tsx */
 /* Layout & Structure */
 header {
-	background-color: antiquewhite;
-	border-radius: 30px;
-	margin-bottom: 30px;
-	padding: 20px 0;
+    background-color: antiquewhite;
+    border-radius: 30px;
+    margin-bottom: 30px;
+    padding: 20px 0;
 }
 
 nav > ul {
-	display: flex;
-	justify-content: space-around;
-	font-size: larger;
+    display: flex;
+    justify-content: space-around;
+    font-size: larger;
 }
 
 a {
-	color: #18272F;
-	position: relative;
-	text-decoration: none;
-	text-transform: uppercase;
+    color: #18272F;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
 }
 
 a::before {
@@ -37,6 +37,6 @@ a::before {
 }
 
 a:hover::before {
-	transform-origin: left;
-	transform: scaleX(1);
+    transform-origin: left;
+    transform: scaleX(0.5);
 }

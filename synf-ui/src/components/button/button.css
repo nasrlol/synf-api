@@ -27,4 +27,5 @@ button {
 button:hover {
     background-color: #1e293b;
     color: #fff;
+    transition: background-color .3s ease-in-out;
 }

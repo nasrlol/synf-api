@@ -5,17 +5,3 @@ input {
     background-color: #e2e8f0;
     text-decoration: none;
 }
-.login label{
-	color: #573b8a;
-	transform: scale(.6);
-}
-
-#chk:checked ~ .login{
-	transform: translateY(-500px);
-}
-#chk:checked ~ .login label{
-	transform: scale(1);
-}
-#chk:checked ~ .signup label{
-	transform: scale(.6);
-}
