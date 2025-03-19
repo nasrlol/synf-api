@@ -13,9 +13,9 @@ footer {
 }
 
 a {
-	color: #18272F;
-	position: relative;
-	text-decoration: none;
+    color: #18272F;
+    position: relative;
+    text-decoration: none;
 }
 
 a:hover::before {
