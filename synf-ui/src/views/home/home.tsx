@@ -4,8 +4,8 @@ import "./home.css";
 function home() {
 	return (
 		<>
-			{hero()}
 			<div className="home">
+				{hero()}
 				<section className="introduction">
 					<h2>Why Choose Our Monitoring Solution?</h2>
 					<p>
@@ -37,7 +37,6 @@ function home() {
 					</article>
 				</section>
 
-				{/* Benefits Section */}
 				<section className="benefits">
 					<h2>What Makes This Unique?</h2>
 					<ul>
@@ -48,7 +47,6 @@ function home() {
 					</ul>
 				</section>
 
-				{/* How It Works Section */}
 				<section className="how-it-works">
 					<h2>How It Works</h2>
 					<ol>
@@ -59,7 +57,6 @@ function home() {
 					</ol>
 				</section>
 
-				{/* CTA Button */}
 				<button className="cta-button">Get Started</button>
 			</div>
 		</>

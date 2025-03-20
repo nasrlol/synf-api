@@ -3,7 +3,6 @@ import "./dashboard.css";
 function dashboard() {
 	return (
 		<>
-			<h1>System Statistics Dashboard</h1>
 			<div className="dashboard">
 				<div className="card">
 					<h3>CPU Usage</h3>

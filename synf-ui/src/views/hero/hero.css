@@ -1,6 +1,5 @@
 .hero {
-	background-color: grey;
-	padding: 50px;
+	border: none;
+	font-weight: 600;
 	text-align: center;
-    height: 50vh ;
 }

@@ -4,14 +4,36 @@ section > article {
 	border-radius: 20px;
 }
 
+.introduction {
+	margin: 50px;
+}
 
 .features {
 	display: flex;
 	gap: 30px;
 	flex-wrap: wrap;
 	justify-content: center;
+	text-align: center;
+}
+
+.features > article {
+	min-width: 500px;
+}
+
+.benefits {
+	margin: 50px;
+}
+
+.how-it-works {
+	margin: 50px;
 }
 
 .home {
-	margin: 50px;
+	margin: 10px auto 30px auto;
+	line-height: 1.6;
+	max-width: 800px;
+}
+
+.cta-button {
+	margin-left: 50px;
 }

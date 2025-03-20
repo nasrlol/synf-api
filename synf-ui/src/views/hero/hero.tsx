@@ -1,12 +1,7 @@
 import "./hero.css";
 
 function hero() {
-	return (
-		<>
-			<h1>SYNF</h1>
-			<h3>System statistics everything from any</h3>
-		</>
-	);
+	return <h1 className="hero">SYNF</h1>;
 }
 
 export default hero;
