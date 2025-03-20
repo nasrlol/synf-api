@@ -1,12 +1,19 @@
-.install {
-	margin: 20px;
+.about {
+	margin: 10px 20px 10px 20px;
 	line-height: 1.6;
 	max-width: 800px;
 }
 
+.about > section {
+	margin: 40px;
+}
 h1,
 h2 {
 	margin-bottom: 10px;
 	border-bottom: 2px solid #ccc;
 	padding-bottom: 5px;
+}
+
+.gettingStarted > a {
+	color: #000000;
 }

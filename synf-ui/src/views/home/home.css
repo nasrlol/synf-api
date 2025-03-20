@@ -1,8 +1,17 @@
 section > article {
-    margin: 20px auto 20px auto;
-    padding: 30px;
-    text-align: left;
-    border: 1px solid #242424;
-    max-width: 50%;
-    border-radius: 30px;
+	padding: 20px;
+	border: 1px solid grey;
+	border-radius: 20px;
+}
+
+
+.features {
+	display: flex;
+	gap: 30px;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.home {
+	margin: 50px;
 }
