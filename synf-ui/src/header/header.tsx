@@ -6,8 +6,9 @@ function header() {
         <header>
             <nav>
                 <ul>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/install">Install</Link></li>
+                    <li><Link to="/">SYNF</Link></li>
+                    <li><Link to="/install">INSTALL</Link></li>
+                    <li><Link to="/about">ABOUT</Link></li>
                     <li><Link to="/login">MYSYNF</Link></li>
                 </ul>
             </nav>

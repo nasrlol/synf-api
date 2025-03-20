@@ -1,7 +1,6 @@
 import "./navigation.css"
 
 function navbar() {
-    const [visible, setVisible] = useState1;
 
     return (
         <nav>

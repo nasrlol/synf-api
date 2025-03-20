@@ -1,18 +1,10 @@
 #root {
-	max-width: 1280px;
-	margin: 0 auto;
-	padding: 2rem;
-	text-align: center;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
 }
 
 #root h1 {
-	font-size: 3rem;
-}
-main {
-	background-color: antiquewhite;
-	color: #213547;
-	padding: 30px;
-	min-height: 50vh;
-	border-radius: 30px;
-	margin: 0;
+    font-size: 3rem;
 }

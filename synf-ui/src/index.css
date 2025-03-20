@@ -1,44 +1,53 @@
 /* Root Variables & Global Styles */
 :root {
-	font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-	font-weight: 400;
-	line-height: 1.5;
-	font-synthesis: none;
-	text-rendering: optimizeLegibility;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 
-	/* Colors */
-	color-scheme: light dark;
-	color: rgba(255, 255, 255, 0.87);
-	background-color: #242424;
+    /* Colors */
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #242424;
+}
+
+main {
+    background-color: #ffffff;
+    color: #213547;
+    padding: 30px;
+    min-height: 50vh;
+    border-radius: 30px;
+    margin: 0;
 }
 
 /* Typography */
 body {
-	margin: 0;
-	padding: 0;
-	font-family: inherit;
-	line-height: inherit;
-	color: inherit;
-	background-color: inherit;
+    margin: 0;
+    padding: 0;
+    font-family: inherit;
+    line-height: inherit;
+    color: inherit;
+    background-color: inherit;
 }
 
 ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 h1 {
-	margin: 0;
-	text-align: center;
+    margin: 0;
+    text-align: center;
 }
 
 /* Responsive Design */
 @media (prefers-color-scheme: light) {
-	:root {
-		color: #213547;
-		background-color: #ffffff;
-	}
+    :root {
+        color: #213547;
+        background-color: #ffffff;
+    }
 }

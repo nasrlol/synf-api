@@ -1,3 +1,5 @@
 # SYFN - UI
 
-Made in react
+>- React
+>- Typescript
+>- CSS
