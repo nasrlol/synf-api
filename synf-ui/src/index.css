@@ -41,8 +41,6 @@ main {
 }
 
 button {
-	background-color: none;
-	text-decoration: none;
 	display: inline-block;
 	outline: 0;
 	appearance: none;

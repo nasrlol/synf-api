@@ -29,7 +29,7 @@ section > article {
 }
 
 .home {
-	margin: 10px auto 30px auto;
+	margin: 10px auto 30px;
 	line-height: 1.6;
 	max-width: 800px;
 }
