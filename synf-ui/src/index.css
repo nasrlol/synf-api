@@ -37,12 +37,10 @@ main {
 	max-width: 80%;
 	border: 3px solid grey;
 	border-radius: 50px;
-	margin: 50px auto 50px auto;
+	margin: 50px auto;
 }
 
 button {
-	background-color: none;
-	text-decoration: none;
 	display: inline-block;
 	outline: 0;
 	appearance: none;
