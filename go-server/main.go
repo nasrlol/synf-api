@@ -50,22 +50,22 @@ type DISKstats struct {
 	DiskID   uint64  `json:"disk_id"`
 	DiskName string  `json:"disk_name"`
 	Disktemp float64 `json:"disk_temp"`
-	DiskSize int     `json:"diskName"`
+	DiskSize int     `json:"disk_size"`
 }
 
 type LOGIN struct {
-	user string
-	pass string
-	ip   string
-	port string
-	name string
+	User string
+	Pass string
+	Ip   string
+	Port string
+	Name string
 }
 
 func loadCredentials() LOGIN {
 
 	err := godotenv.Load("secret.env")
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		fmt.Println("Error loading .env file")
 	}
 
 	user := os.Getenv("DATABASE_USER")
@@ -75,11 +75,11 @@ func loadCredentials() LOGIN {
 	name := os.Getenv("DATABASE_NAME")
 
 	return LOGIN{
-		user: user,
-		pass: pass,
-		ip:   ip,
-		port: port,
-		name: name,
+		User: user,
+		Pass: pass,
+		Ip:   ip,
+		Port: port,
+		Name: name,
 	}
 }
 
@@ -97,20 +97,15 @@ func setDeviceInformation() device {
 func connectDB() {
 
 	credentials := loadCredentials()
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", credentials.user, credentials.pass, credentials.ip, credentials.port, credentials.name)
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", credentials.User, credentials.Pass, credentials.Ip, credentials.Port, credentials.Name)
 
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
 		log.Fatal(err)
 		return
 	}
+	defer db.Close()
 
-	defer func(db *sql.DB) {
-		err := db.Close()
-		if err != nil {
-			fmt.Print("Error closing db")
-		}
-	}(db)
 	showTables := "SHOW TABLES"
 	rows, err := db.Query(showTables)
 	if err != nil {
