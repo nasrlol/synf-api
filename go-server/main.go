@@ -22,14 +22,14 @@ type device struct {
 	DeviceID     uint16 `json:"device_id"`
 	DeviceName   string `json:"device_name"`
 	DeviceStatus bool   `json:"is_logging"`
-	deviceName   string
+	DeviceOwner  string `json:"device_owner"`
 }
 
 type CPUstats struct {
 	CpuID   uint16  `json:"cpu_id"`
 	CpuName string  `json:"cpu_name"`
-	CpuFreq float64 `json:"cpu_clock_speed"`
-	CpuTemp float64
+	CpuFreq float64 `json:"cpu_freq"`
+	CpuTemp float64 `json:"cpu_temp"`
 }
 
 type GPUstats struct {
@@ -104,7 +104,12 @@ func connectDB() {
 		log.Fatal(err)
 		return
 	}
-	defer db.Close()
+	defer func(db *sql.DB) {
+		err := db.Close()
+		if err != nil {
+
+		}
+	}(db)
 
 	showTables := "SHOW TABLES"
 	rows, err := db.Query(showTables)
