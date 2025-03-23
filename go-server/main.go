@@ -40,14 +40,14 @@ type GPUstats struct {
 }
 
 type RAMstats struct {
-	RamID    uint64  `json:"ram_id"`
+	RamID    uint16  `json:"ram_id"`
 	RamName  string  `json:"ram_name"`
 	RamUsed  float64 `json:"ram_used"`
 	RamTotal float64 `json:"ram_total"`
 }
 
 type DISKstats struct {
-	DiskID   uint64  `json:"disk_id"`
+	DiskID   uint16  `json:"disk_id"`
 	DiskName string  `json:"disk_name"`
 	Disktemp float64 `json:"disk_temp"`
 	DiskSize int     `json:"disk_size"`
