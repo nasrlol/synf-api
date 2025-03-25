@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"database/sql"
+	"encoding/json"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
 	"github.com/julienschmidt/httprouter"
@@ -98,7 +99,7 @@ func setDeviceInformation() device {
 	return newDevice
 }
 
-func connectDB() {
+func connectDB() sql.DB {
 
 	credentials := loadCredentials()
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", credentials.User, credentials.Pass, credentials.Ip, credentials.Port, credentials.Name)
@@ -106,7 +107,6 @@ func connectDB() {
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
 		log.Fatal(err)
-		return
 	}
 	defer func(db *sql.DB) {
 		err := db.Close()
@@ -119,7 +119,6 @@ func connectDB() {
 	rows, err := db.Query(showTables)
 	if err != nil {
 		fmt.Println("Error executing query:", err)
-		return
 	}
 	defer func(rows *sql.Rows) {
 		err := rows.Close()
@@ -132,11 +131,11 @@ func connectDB() {
 		var tableName string
 		if err := rows.Scan(&tableName); err != nil {
 			fmt.Println("Error scanning row:", err)
-			return
 		}
 		fmt.Println("- " + tableName)
 	}
 	fmt.Println("Connected to MySQL")
+	return *db
 }
 
 func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
@@ -202,5 +201,7 @@ func serveServer() {
 
 func main() {
 	fmt.Println("getting system data...")
+
 	connectDB()
+	serveServer()
 }
