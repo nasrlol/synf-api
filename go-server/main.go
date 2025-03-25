@@ -139,6 +139,67 @@ func connectDB() {
 	fmt.Println("Connected to MySQL")
 }
 
+func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	fmt.Println("Server is running")
+}
+
+func UserInformation(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	_, _ = fmt.Fprintf(w, "Welcome user, %s!\n", ps.ByName("name"))
+}
+
+func userReg(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+
+	var user userInformation
+
+	err := json.NewDecoder(r.Body).Decode(&user)
+	if err != nil {
+		http.Error(w, "Invalid input", http.StatusBadRequest)
+		return
+	}
+
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.UserPassword), bcrypt.DefaultCost)
+	if err != nil {
+		http.Error(w, "Error hashing password", http.StatusInternalServerError)
+		return
+	}
+
+	user.UserPassword = string(hashedPassword)
+
+	Insertion(user)
+
+	w.WriteHeader(http.StatusCreated)
+	err_ := json.NewEncoder(w).Encode(map[string]interface{}{
+		"message": "User registered successfully",
+		"user_id": user.UserID,
+	})
+	if err_ != nil {
+		return
+	}
+}
+
+func Insertion(data userInformation) {
+
+	query := `INSERT INTO USER (user_name, user_password, user_role, user_email) 
+              VALUES ($1, $2, $3, $4)`
+
+	db := connectDB()
+	err, _ := db.Exec(query, data.UserName, data.UserPassword, data.UserRole, data.UserEmail)
+	if err != nil {
+		log.Fatal("Error inserting data: ", err)
+	} else {
+		fmt.Println("User inserted successfully!")
+	}
+}
+
+func serveServer() {
+
+	router := httprouter.New()
+	router.GET("/", Index)
+	router.GET("/hello/:name", UserInformation)
+
+	log.Fatal(http.ListenAndServe(":5210", router))
+}
+
 func main() {
 	fmt.Println("getting system data...")
 	connectDB()
