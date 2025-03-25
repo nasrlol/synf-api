@@ -19,6 +19,7 @@ type userInformation struct {
 	UserRole          bool   `json:"user_role"`
 	UserEmail         string `json:"user_email"`
 	UserEmailVerified bool   `json:"is_email_verified"`
+	UserPassword      string `json:"user_password"`
 }
 
 type device struct {
