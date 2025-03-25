@@ -14,7 +14,7 @@ import (
 )
 
 type userInformation struct {
-	UserID            uint16 `json:"id"`
+	UserID            uint8  `json:"id"`
 	UserName          string `json:"user_name"`
 	UserRole          bool   `json:"user_role"`
 	UserEmail         string `json:"user_email"`
