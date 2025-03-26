@@ -50,6 +50,7 @@ func connectDB() (*sql.DB, error) {
 	credentials := loadCredentials()
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", credentials.User, credentials.Pass, credentials.Ip, credentials.Port, credentials.Name)
 
+	fmt.Println(credentials.Ip, credentials.User, credentials.User)
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
 		return nil, err
