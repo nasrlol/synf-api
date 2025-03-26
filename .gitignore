@@ -55,3 +55,7 @@ Mkfile.old
 dkms.conf
 .DS_Store
 secret.env
+<<<<<<< HEAD
+=======
+*.env
+>>>>>>> 05abb3a (fixed the gitignore it was forgetting to ignore the wrong file)
