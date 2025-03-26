@@ -1,13 +1,13 @@
 package main
 
 import (
+	"database/sql"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
 
-	"database/sql"
-	"encoding/json"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
 	"github.com/julienschmidt/httprouter"
@@ -23,41 +23,6 @@ type userInformation struct {
 	UserPassword      string `json:"user_password"`
 }
 
-type device struct {
-	DeviceID     uint16 `json:"device_id"`
-	DeviceName   string `json:"device_name"`
-	DeviceStatus bool   `json:"is_logging"`
-	DeviceOwner  string `json:"device_owner"`
-}
-
-type CPUstats struct {
-	CpuID   uint16  `json:"cpu_id"`
-	CpuName string  `json:"cpu_name"`
-	CpuFreq float64 `json:"cpu_freq"`
-	CpuTemp float64 `json:"cpu_temp"`
-}
-
-type GPUstats struct {
-	GpuID   uint16  `json:"gpu_id"`
-	GpuName string  `json:"gpu_name"`
-	GpuFreq float64 `json:"gpu_clock_speed"`
-	GpuTemp float64 `json:"gpu_temp"`
-}
-
-type RAMstats struct {
-	RamID    uint16  `json:"ram_id"`
-	RamName  string  `json:"ram_name"`
-	RamUsed  float64 `json:"ram_used"`
-	RamTotal float64 `json:"ram_total"`
-}
-
-type DISKstats struct {
-	DiskID   uint16  `json:"disk_id"`
-	DiskName string  `json:"disk_name"`
-	Disktemp float64 `json:"disk_temp"`
-	DiskSize int     `json:"disk_size"`
-}
-
 type LOGIN struct {
 	User string
 	Pass string
@@ -67,87 +32,40 @@ type LOGIN struct {
 }
 
 func loadCredentials() LOGIN {
-
 	err := godotenv.Load("secret.env")
 	if err != nil {
-		fmt.Println("Error loading .env file")
+		log.Fatal("Error loading .env file")
 	}
-
-	user := os.Getenv("DATABASE_USER")
-	pass := os.Getenv("DATABASE_PASSWORD")
-	ip := os.Getenv("DATABASE_IP")
-	port := os.Getenv("DATABASE_PORT")
-	name := os.Getenv("DATABASE_NAME")
 
 	return LOGIN{
-		User: user,
-		Pass: pass,
-		Ip:   ip,
-		Port: port,
-		Name: name,
+		User: os.Getenv("DATABASE_USER"),
+		Pass: os.Getenv("DATABASE_PASSWORD"),
+		Ip:   os.Getenv("DATABASE_IP"),
+		Port: os.Getenv("DATABASE_PORT"),
+		Name: os.Getenv("DATABASE_NAME"),
 	}
 }
 
-func setDeviceInformation() device {
-	// Get the system information from the database
-
-	newDevice := device{
-		DeviceID:     1,
-		DeviceName:   "",
-		DeviceStatus: false,
-	}
-	return newDevice
-}
-
-func connectDB() sql.DB {
-
+func connectDB() (*sql.DB, error) {
 	credentials := loadCredentials()
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", credentials.User, credentials.Pass, credentials.Ip, credentials.Port, credentials.Name)
 
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
-	defer func(db *sql.DB) {
-		err := db.Close()
-		if err != nil {
 
-		}
-	}(db)
+	// Check connection
+	if err = db.Ping(); err != nil {
+		db.Close()
+		return nil, err
+	}
 
-	showTables := "SHOW TABLES"
-	rows, err := db.Query(showTables)
-	if err != nil {
-		fmt.Println("Error executing query:", err)
-	}
-	defer func(rows *sql.Rows) {
-		err := rows.Close()
-		if err != nil {
-			fmt.Println("Error closing rows:", err)
-		}
-	}(rows)
-	fmt.Println("Tables in database:")
-	for rows.Next() {
-		var tableName string
-		if err := rows.Scan(&tableName); err != nil {
-			fmt.Println("Error scanning row:", err)
-		}
-		fmt.Println("- " + tableName)
-	}
 	fmt.Println("Connected to MySQL")
-	return *db
+	return db, nil
 }
 
-func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	fmt.Println("Server is running")
-}
-
-func UserInformation(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	_, _ = fmt.Fprintf(w, "Welcome user, %s!\n", ps.ByName("name"))
-}
-
-func userReg(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-
+func userReg(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	var user userInformation
 
 	err := json.NewDecoder(r.Body).Decode(&user)
@@ -164,44 +82,53 @@ func userReg(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
 	user.UserPassword = string(hashedPassword)
 
-	Insertion(user)
-
-	w.WriteHeader(http.StatusCreated)
-	err_ := json.NewEncoder(w).Encode(map[string]interface{}{
-		"message": "User registered successfully",
-		"user_id": user.UserID,
-	})
-	if err_ != nil {
+	if err := insertUser(user); err != nil {
+		http.Error(w, "Failed to insert user", http.StatusInternalServerError)
 		return
 	}
+
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"message": "User registered successfully",
+	})
 }
 
-func Insertion(data userInformation) {
-
-	query := `INSERT INTO USER (user_name, user_password, user_role, user_email) 
-              VALUES ($1, $2, $3, $4)`
-
-	db := connectDB()
-	err, _ := db.Exec(query, data.UserName, data.UserPassword, data.UserRole, data.UserEmail)
+func insertUser(data userInformation) error {
+	db, err := connectDB()
 	if err != nil {
-		log.Fatal("Error inserting data: ", err)
-	} else {
-		fmt.Println("User inserted successfully!")
+		return err
 	}
+	defer db.Close()
+
+	query := `INSERT INTO USER (user_name, user_password, user_role, user_email) VALUES (?, ?, ?, ?)`
+	_, err = db.Exec(query, data.UserName, data.UserPassword, boolToInt(data.UserRole), data.UserEmail)
+	if err != nil {
+		return err
+	}
+
+	fmt.Println("User inserted successfully!")
+	return nil
+}
+
+func boolToInt(value bool) int {
+	if value {
+		return 1
+	}
+	return 0
+}
+
+func Index(w http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
+	w.Write([]byte("Server is running"))
 }
 
 func serveServer() {
-
 	router := httprouter.New()
 	router.GET("/", Index)
-	router.GET("/hello/:name", UserInformation)
+	router.POST("/user/register", userReg)
 
 	log.Fatal(http.ListenAndServe(":5210", router))
 }
 
 func main() {
-	fmt.Println("getting system data...")
-
-	connectDB()
 	serveServer()
 }
