@@ -135,5 +135,7 @@ func serveServer() {
 }
 
 func main() {
+	fmt.Println("API STARTED...")
 	serveServer()
 }
+
