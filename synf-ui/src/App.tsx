@@ -1,7 +1,7 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import header from "./ layout/header.tsx";
-import footer from "./ layout/footer.tsx";
+import header from "./layout/header.tsx";
+import footer from "./layout/footer.tsx";
 import Home from "./views/home/home.tsx";
 import Login from "./views/login/login.tsx";
 import About from "./views/about/about.tsx";

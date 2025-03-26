@@ -8,7 +8,7 @@
 	border-radius: 10px;
 }
 
-.login {
+.login, .signup{
 	background: white;
 	padding: 30px;
 	border-radius: 10px;
