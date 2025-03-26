@@ -69,12 +69,14 @@ func userReg(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	var user userInformation
 
 	err := json.NewDecoder(r.Body).Decode(&user)
+	fmt.Println("converting user information to json...")
 	if err != nil {
 		http.Error(w, "Invalid input", http.StatusBadRequest)
 		return
 	}
 
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.UserPassword), bcrypt.DefaultCost)
+	fmt.Println("hasing the user password...")
 	if err != nil {
 		http.Error(w, "Error hashing password", http.StatusInternalServerError)
 		return
@@ -101,8 +103,10 @@ func insertUser(data userInformation) error {
 	defer db.Close()
 
 	query := `INSERT INTO USER (user_name, user_password, user_role, user_email) VALUES (?, ?, ?, ?)`
+	fmt.Println("inserting the information into the database")
 	_, err = db.Exec(query, data.UserName, data.UserPassword, boolToInt(data.UserRole), data.UserEmail)
 	if err != nil {
+		fmt.Println("failed to insert into the database")
 		return err
 	}
 
