@@ -58,6 +58,7 @@ func connectDB() (*sql.DB, error) {
 
 	// Check connection
 	if err = db.Ping(); err != nil {
+		fmt.Println("failed to ping the server")
 		err := db.Close()
 		if err != nil {
 			return nil, err
@@ -108,11 +109,7 @@ func insertUser(data userInformation) error {
 
 	query := `INSERT INTO USER (user_name, user_password, user_role, user_email) VALUES (?, ?, ?, ?)`
 	fmt.Println("inserting the information into the database")
-	_, err = db.Exec(query, data.UserName, data.UserPassword, boolToInt(data.UserRole), data.UserEmail)
-	if err != nil {
-		fmt.Println("failed to insert into the database")
-		return err
-	}
+	db.Exec(query, data.UserName, data.UserPassword, boolToInt(data.UserRole), data.UserEmail)
 
 	fmt.Println("User inserted successfully!")
 	return nil
