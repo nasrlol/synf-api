@@ -133,7 +133,7 @@ func serveServer() {
 	router.GET("/", Index)
 	router.POST("/user/register", userReg)
 
-	log.Fatal(http.ListenAndServe(":5000", router))
+	log.Fatal(http.ListenAndServe(":8080", router))
 }
 
 func getOutboundIp() net.IP {
@@ -163,6 +163,6 @@ func raw_connect(host string,  port string) {
 func main() {
 	fmt.Println("API STARTED...")
 	fmt.Println(getOutboundIp())
-	raw_connect("localhost", "5000")
+	raw_connect("localhost", "8080")
 	serveServer()
 }
