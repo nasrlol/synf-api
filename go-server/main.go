@@ -7,6 +7,8 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"net"
+	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
@@ -131,10 +133,36 @@ func serveServer() {
 	router.GET("/", Index)
 	router.POST("/user/register", userReg)
 
-	log.Fatal(http.ListenAndServe(":5210", router))
+	log.Fatal(http.ListenAndServe(":5000", router))
+}
+
+func getOutboundIp() net.IP {
+    conn, err := net.Dial("udp", "8.8.8.8:80")
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer conn.Close()
+
+    localAddr := conn.LocalAddr().(*net.UDPAddr)
+
+    return localAddr.IP
+}
+
+func raw_connect(host string,  port string) {
+        timeout := time.Second
+        conn, err := net.DialTimeout("tcp", net.JoinHostPort(host, port), timeout)
+        if err != nil {
+            fmt.Println("Connecting error:", err)
+        }
+        if conn != nil {
+            defer conn.Close()
+            fmt.Println("Opened", net.JoinHostPort(host, port))
+        }
 }
 
 func main() {
 	fmt.Println("API STARTED...")
+	fmt.Println(getOutboundIp())
+	raw_connect("localhost", "5000")
 	serveServer()
 }
