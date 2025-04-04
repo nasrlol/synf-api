@@ -9,6 +9,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/julienschmidt/httprouter"
 	"golang.org/x/crypto/bcrypt"
+	"synf/logs"
 )
 
 func boolToInt(value bool) int {
@@ -35,12 +36,32 @@ type LOGIN struct {
 	Name string
 }
 
+func insertUser(data userInformation) error {
+	db, err := db.ConnectDB()
+	if err != nil {
+		return err
+	}
+	if db != nil {
+		defer db.Close()
+	} else {
+		return fmt.Errorf("db is nil 501")
+	}
+
+	query := `INSERT INTO USER (user_name, user_password, user_role, user_email) VALUES (?, ?, ?, ?)`
+	fmt.Println("inserting the information into the database")
+	db.Exec(query, data.UserName, data.UserPassword, boolToInt(data.UserRole), data.UserEmail)
+
+	fmt.Println("User inserted successfully!")
+	return nil
+}
+
 func UserReg(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	var user userInformation
 
 	err := json.NewDecoder(r.Body).Decode(&user)
 	fmt.Println("converting user information to json...")
 	if err != nil {
+		logs.Log(fmt.Errorf("failed to convert user information to json"))
 		http.Error(w, "Invalid input", http.StatusBadRequest)
 		return
 	}
@@ -65,61 +86,30 @@ func UserReg(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	})
 }
 
-func insertUser(data userInformation) error {
+func selectUser(data userInformation) userInformation {
+
 	db, err := db.ConnectDB()
 	if err != nil {
-		return err
+		return userInformation{}
 	}
-	if db != nil {
-		defer db.Close()
+
+	query := "SELECT EXISTS(SELECT 1 FROM USER WHERE user_id = ?)"
+	row := db.QueryRow(query, string(data.UserID))
+
+	err = row.Scan(&data.UserName, &data.UserPassword, &data.UserRole, &data.UserEmail)
+	if err != nil {
+		return userInformation{}
 	} else {
-		return fmt.Errorf("db is nil 501")
+		return userInformation{}
+
 	}
-	
-
-	query := `INSERT INTO USER (user_name, user_password, user_role, user_email) VALUES (?, ?, ?, ?)`
-	fmt.Println("inserting the information into the database")
-	db.Exec(query, data.UserName, data.UserPassword, boolToInt(data.UserRole), data.UserEmail)
-
-	fmt.Println("User inserted successfully!")
-	return nil
 }
 
-func GetUser(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func GetUser(w http.ResponseWriter, r *http.Request, ps httprouter.Params)  {
 
-	var data userInformation
-	user, err := queryUser(data) 
-	if err != nil {
-		fmt.Printf("error") 
-	}
-	fmt.Println(user)
-	
-}
+	var	data userInformation	
+	data = selectUser(data)
 
-func queryUser(data userInformation) (userInformation, error) {
-
-	db, err := db.ConnectDB()
-	if err != nil{
-		return userInformation{}, fmt.Errorf("database connection error when trying to pull the user information form the database")
-	}
-
-	query := "SELECT EXISTS(SELECT 1 FROM USER WHERE user_name = ?)"
-
-	row, err := db.Query(query, data.UserName)
-	if err != nil {
-		return userInformation{}, fmt.Errorf("internal databse error couldn't complete query")
-	}
-	defer row.Close()
-
-	var user userInformation 
-
-	for row.Next(){
-		err := row.Scan(&data.UserName, &data.UserPassword, &data.UserRole, &data.UserEmail)
-		if err != nil {
-			return userInformation{}, fmt.Errorf("error scanning rows") 
-		}
-	}
-
-	fmt.Println("Retrieved username succesfully")
-	return user, nil 
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(data)
 }

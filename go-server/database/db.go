@@ -11,12 +11,7 @@ import (
 )
 
 
-func BoolToInt(value bool) int {
-	if value {
-		return 1
-	}
-	return 0
-}
+
 
 type UserInformation struct {
 	UserID            uint8  `json:"id"`

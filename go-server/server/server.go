@@ -5,8 +5,8 @@ import (
 	"log"
 	"net"
 	"net/http"
-	"synf/handlers/auth"
 	"time"
+    "synf/handlers/auth"
 
 	"github.com/julienschmidt/httprouter"
 )
