@@ -5,8 +5,6 @@ import (
 	"synf/server"
 )
 
-
-
 func main() {
 
 	// clear terminal screen ASCII sequence
@@ -17,5 +15,4 @@ func main() {
 	fmt.Println("API STARTED...")
 	fmt.Println(server.GetOutboundIp())
 	
-
 }
