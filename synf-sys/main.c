@@ -25,6 +25,8 @@ int cpu_temperature(int delay)
     }
     return 0;
 }
+
+
 int main(int argc, char** argv)
 {
     if (argc > 1)
