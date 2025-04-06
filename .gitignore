@@ -49,6 +49,8 @@
 modules.order
 Module.symvers
 
+*code-workspace
+
 *.idea
 *.vscode
 Mkfile.old
