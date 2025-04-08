@@ -5,35 +5,33 @@ import (
 	"os/exec"
 )
 
-func CpuTemperature(){
+func CpuTemperature() string {
 	fmt.Println("Getting CPU temperature")
-	cpuTemperature, err := exec.Command("../../../synf-sys/cpu", "temp").Output()
+	cpuTemperature, err := exec.Command("../../../synf-sys/cpu", "temperature").Output()
 	if err != nil{
 		fmt.Println("can't get cpu temperature")
-		return
 	}
-	fmt.Println(cpuTemperature)
+	return string(cpuTemperature);
 }
 
-func CpuName(){
+func CpuName() string {
 	fmt.Println("Getitng the CPU Name")
 	cpuName, err := exec.Command("/synf-sys/cpu", "name").Output()
 	if err != nil{
 		fmt.Println("can't get the cpu name")
 	}
-	fmt.Println(cpuName)
+	return string(cpuName)
 }
 
-func CpuFrequency(){
+func CpuFrequency() string {
 	fmt.Println("Getting the CPU frequency")
-	cpuFreq, err := exec.Command("/synf-sys/cpu", "freq").Output()
+	cpuFreq, err := exec.Command("/synf-sys/cpu", "frequency").Output()
 		if err != nil{
 		fmt.Println("can't get the cpu name")
 	}
-	fmt.Println(cpuFreq)
+	return string(cpuFreq)
 }
 
 func Sys(){
-	CpuTemperature()
 	CpuName()
 }
