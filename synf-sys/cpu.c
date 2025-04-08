@@ -26,12 +26,17 @@ void cpu_name(void);
 void cpu_temperature(unsigned short delay);
 void cpu_frequency(void);
 
-int main(void)
+int main(int argc, char** argv)
 {
-    cpu_frequency();
-    cpu_name();
-    cpu_temperature(1);
-
+    if (argc > 1)
+    {
+        if (strcmp(argv[1], "frequency") == 0)
+            cpu_frequency();
+        else if (strcmp(argv[1], "name") == 0)
+            cpu_name();
+        else if(strcmp(argv[1],"temperature") == 0)
+            cpu_temperature(1);
+    }
     return 0;
 }
 
