@@ -1,25 +1,40 @@
 package sys
 
 import (
+	"bufio"
 	"fmt"
+	"log"
 	"os/exec"
 )
 
-func CpuTemperature() string {
-	fmt.Println("getting CPU temperature")
-	path := "./cpu"
-	argument := "temperature"
+func CpuTemperature() {
+	cmd := exec.Command("./cpu", "temperature")
 
-	cpuTemperature, err := exec.Command(path, argument).Output()
+	stdout, err := cmd.StdoutPipe()
 	if err != nil {
-		fmt.Println("can't get cpu temperature")
+		log.Fatal(err)
 	}
-	fmt.Println("passed program execution?")
-	return string(cpuTemperature)
+
+	if err := cmd.Start(); err != nil {
+		log.Fatal(err)
+	}
+
+	scanner := bufio.NewScanner(stdout)
+
+	go func() {
+		for scanner.Scan() {
+			fmt.Println(scanner.Text())
+		}
+		if err := scanner.Err(); err != nil {
+			fmt.Println("scanner error:", err)
+		}
+	}()
+
+	select {}
 }
 
 func CpuName() string {
-	fmt.Println("getting the CPU Name")
+	fmt.Println("getting the CPU name")
 	path := "./cpu"
 	argument := "name"
 
@@ -27,7 +42,6 @@ func CpuName() string {
 	if err != nil {
 		fmt.Println("can't get the cpu name")
 	}
-	fmt.Println("passed program execution?")
 	return string(cpuName)
 }
 
@@ -38,8 +52,7 @@ func CpuFrequency() string {
 
 	cpuFreq, err := exec.Command(path, argument).Output()
 	if err != nil {
-		fmt.Println("can't get the cpu name")
+		fmt.Println("can't get the cpu frequency")
 	}
 	return string(cpuFreq)
 }
-
