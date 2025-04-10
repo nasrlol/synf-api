@@ -24,7 +24,7 @@
 
 void cpu_name(void);
 void cpu_temperature(unsigned short delay);
-void cpu_frequency(void);
+void cpu_frequency(unsigned short delay);
 
 int main(int argc, char** argv)
 {
@@ -32,7 +32,7 @@ int main(int argc, char** argv)
     {
         if (strcmp(argv[1], "frequency") == 0)
         {
-            cpu_frequency();
+            cpu_frequency(1);
             printf("starting the process of getting the CPU frequency\n");
         }
 
@@ -44,10 +44,11 @@ int main(int argc, char** argv)
         }
         else if(strcmp(argv[1],"temperature") == 0)
         {
-            printf("starting the process of getting the CPU temperature\n");
+            printf("CPU temperature:\n");
             cpu_temperature(1);
         }
-    }
+    } else 
+        printf("no arguments passed, try again with : frequency, temperature or name");
     return 0;
 }
 
@@ -82,7 +83,7 @@ void cpu_name(void)
 
 void cpu_temperature(unsigned short delay)
 {
-    while (delay > 0)
+    while (1)
     {
         sleep(delay);
         FILE *pf = fopen("/sys/class/thermal/thermal_zone0/temp", "r");
@@ -95,17 +96,18 @@ void cpu_temperature(unsigned short delay)
         {
             int a = atoi(buffer);
             a /= 1000;
-            printf("CPU Temp: %dC\n", a);
+            printf("%dC\n", a);
+            fflush(stdout);
         }
         fclose(pf);
     }
-    delay--;
 }
 
-void cpu_frequency(void)
+void cpu_frequency(unsigned short delay)
 {
-    while (1)
+    while (delay > 0)
     {
+        sleep(delay);
         FILE *pf = fopen("/proc/cpuinfo", "r");
         // error handling in case of not being able to open the file
         if (!pf)
@@ -117,7 +119,6 @@ void cpu_frequency(void)
             int a = atoi(buffer);
             printf("CPU FREQ: %d\n", a);
         }
-
         fclose(pf);
     }
 }
