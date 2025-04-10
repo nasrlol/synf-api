@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"log"
+	"net/http"
 	"os/exec"
 )
 
@@ -55,4 +56,23 @@ func CpuFrequency() string {
 		fmt.Println("can't get the cpu frequency")
 	}
 	return string(cpuFreq)
+}
+
+func dataPage(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "data")
+}
+
+func wsEndpoint(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "websocket endpoint")
+}
+
+func setupRouters() {
+	http.HandleFunc("/", dataPage)
+	http.HandleFunc("ws", wsEndpoint)
+}
+
+func Run() {
+	fmt.Println("Websocket")
+	setupRouters()
+	log.Fatal(http.ListenAndServe(":8090", nil))
 }
