@@ -1,47 +1,54 @@
 # SYNF - Front-End
 
 ## Overview
+
 SYNF is a web application that provides real-time insights into device health, allowing users to monitor and manage system status from anywhere. This repository contains the front-end, built using React.
 
 ## Features
-- Responsive and modern UI
-- Real-time device health monitoring
-- Secure authentication and data handling
-- API integration with the SYNF backend
+
+-   Responsive and modern UI
+-   Real-time device health monitoring
+-   Secure authentication and data handling
+-   API integration with the SYNF backend
 
 ## Technologies Used
-- **React** - Component-based front-end framework
-- **React Router** - For client-side routing
-- **Vite** - For fast development and optimized builds
+
+-   **React** - Component-based front-end framework
+-   **React Router** - For client-side routing
+-   **Vite** - For fast development and optimized builds
 
 ## Installation
 
 ### Prerequisites
+
 Ensure you have the following installed on your system:
-- Node.js (>= 16.x)
-- npm or yarn
+
+-   Node.js (>= 16.x)
+-   npm or yarn
 
 ### Steps
+
 1. Clone the repository:
-   ```sh
-   git clone https://github.com/yourusername/synf-ui.git
-   cd synf-ui
-   ```
+    ```sh
+    git clone https://github.com/yourusername/synf-ui.git
+    cd synf-ui
+    ```
 2. Install dependencies:
-   ```sh
-   npm install
-   # or
-   yarn install
-   ```
+    ```sh
+    npm install
+    # or
+    yarn install
+    ```
 3. Start the development server:
-   ```sh
-   npm run dev
-   # or
-   yarn dev
-   ```
+    ```sh
+    npm run dev
+    # or
+    yarn dev
+    ```
 4. Open your browser and go to `http://localhost:5173` (or as specified in the terminal output).
 
 ## Project Structure
+
 ```
 ├── public/              # Static assets
 ├── src/
@@ -59,21 +66,23 @@ Ensure you have the following installed on your system:
 ```
 
 ## Deployment
+
 1. Build the application:
-   ```sh
-   npm run build
-   # or
-   yarn build
-   ```
+    ```sh
+    npm run build
+    # or
+    yarn build
+    ```
 2. Deploy the `dist/` folder to your preferred hosting service (e.g., Vercel, Netlify, or a self-hosted server).
 
 ## License
+
 This project is licensed under the [MIT License](LICENSE).
 
 ## Contributing
+
 Contributions are welcome! If you'd like to contribute, please fork the repository and submit a pull request.
 
 ## Contact
+
 For inquiries or support, open an issue or reach out via nsrddyn@gmail.com
-
-

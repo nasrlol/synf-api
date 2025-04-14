@@ -1,10 +1,10 @@
-import "./home.css"
+import "./home.css";
 import navigation from "../settings_navigation/navigation.tsx";
 
 function home() {
-    {
-        navigation()
-    }
+	{
+		navigation();
+	}
 }
 
 export default home;
