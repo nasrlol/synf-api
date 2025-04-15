@@ -1,4 +1,4 @@
-import hero from "../hero/hero.tsx";
+import hero from "../layout/hero.tsx";
 import "./home.css";
 
 function home() {

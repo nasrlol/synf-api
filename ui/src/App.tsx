@@ -2,12 +2,12 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import header from "./layout/header.tsx";
 import footer from "./layout/footer.tsx";
-import Home from "./views/home/home.tsx";
-import Login from "./views/login/login.tsx";
-import About from "./views/about/about.tsx";
-import Install from "./views/install/install.tsx";
-import Signup from "./views/signup/signup.tsx";
-import Dashboard from "./views/dashboard/dashboard.tsx";
+import Home from "./home/home.tsx";
+import Login from "./signup/login.tsx";
+import About from "./pages/about.tsx";
+import Install from "./pages/install.tsx";
+import Signup from "./signup/signup.tsx";
+import Dashboard from "./data/dashboard.tsx";
 
 function App() {
 	return (

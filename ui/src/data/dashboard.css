@@ -8,6 +8,7 @@
 	background-color: #18272f;
 	padding: 20px;
 	min-width: 250px;
+	max-width: 500px;
 	min-height: 250px;
 	border-radius: 10px;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -20,12 +21,15 @@
 
 .card > p {
 	text-transform: lowercase;
+	color: #ffffff;
+	font-weight: 600;
 	margin-top: 10px;
 	font-size: 20px;
 	font-weight: 200;
 }
 .stat-value {
 	font-size: 2em;
+	font-weight: 600;
 	font-weight: bold;
 	color: #ffffff;
 }

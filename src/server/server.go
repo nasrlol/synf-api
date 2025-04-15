@@ -12,9 +12,9 @@ import (
 )
 
 func UserLog(w http.ResponseWriter, _ *http.Request, _ httprouter.Params){
-
 	w.Write([]byte("endpoint is running, user login endpoint"))
 }
+
 
 func RegistrationEndpoint() {
 	router := httprouter.New()

@@ -1,88 +1,54 @@
-# SYNF - Front-End
+# React + TypeScript + Vite
 
-## Overview
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-SYNF is a web application that provides real-time insights into device health, allowing users to monitor and manage system status from anywhere. This repository contains the front-end, built using React.
+Currently, two official plugins are available:
 
-## Features
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
--   Responsive and modern UI
--   Real-time device health monitoring
--   Secure authentication and data handling
--   API integration with the SYNF backend
+## Expanding the ESLint configuration
 
-## Technologies Used
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
--   **React** - Component-based front-end framework
--   **React Router** - For client-side routing
--   **Vite** - For fast development and optimized builds
-
-## Installation
-
-### Prerequisites
-
-Ensure you have the following installed on your system:
-
--   Node.js (>= 16.x)
--   npm or yarn
-
-### Steps
-
-1. Clone the repository:
-    ```sh
-    git clone https://github.com/yourusername/synf-ui.git
-    cd synf-ui
-    ```
-2. Install dependencies:
-    ```sh
-    npm install
-    # or
-    yarn install
-    ```
-3. Start the development server:
-    ```sh
-    npm run dev
-    # or
-    yarn dev
-    ```
-4. Open your browser and go to `http://localhost:5173` (or as specified in the terminal output).
-
-## Project Structure
-
-```
-├── public/              # Static assets
-├── src/
-│   ├── components/      # Reusable UI components
-│   ├── pages/           # Application pages
-│   ├── hooks/           # Custom React hooks
-│   ├── context/         # Global state management
-│   ├── services/        # API interaction and utilities
-│   ├── App.tsx          # Main application entry point
-│   ├── main.tsx         # Root render file
-│   ├── index.css        # Global styles
-├── package.json         # Dependencies and scripts
-├── vite.config.ts       # Vite configuration
-└── README.md            # Project documentation
+```js
+export default tseslint.config({
+  extends: [
+    // Remove ...tseslint.configs.recommended and replace with this
+    ...tseslint.configs.recommendedTypeChecked,
+    // Alternatively, use this for stricter rules
+    ...tseslint.configs.strictTypeChecked,
+    // Optionally, add this for stylistic rules
+    ...tseslint.configs.stylisticTypeChecked,
+  ],
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
 ```
 
-## Deployment
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-1. Build the application:
-    ```sh
-    npm run build
-    # or
-    yarn build
-    ```
-2. Deploy the `dist/` folder to your preferred hosting service (e.g., Vercel, Netlify, or a self-hosted server).
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
-## Contributing
-
-Contributions are welcome! If you'd like to contribute, please fork the repository and submit a pull request.
-
-## Contact
-
-For inquiries or support, open an issue or reach out via nsrddyn@gmail.com
+export default tseslint.config({
+  plugins: {
+    // Add the react-x and react-dom plugins
+    'react-x': reactX,
+    'react-dom': reactDom,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended typescript rules
+    ...reactX.configs['recommended-typescript'].rules,
+    ...reactDom.configs.recommended.rules,
+  },
+})
+```

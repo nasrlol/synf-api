@@ -4,11 +4,38 @@ import (
 	"bufio"
 	"fmt"
 	"log"
-	"net/http"
 	"os/exec"
 )
 
-func CpuTemperature() {
+func CpuTemperature() <-chan string {
+	outChan := make(chan string)
+
+	cmd := exec.Command("./cpu", "temperature")
+	stdout, err := cmd.StdoutPipe()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if err := cmd.Start(); err != nil {
+		log.Fatal(err)
+	}
+
+	scanner := bufio.NewScanner(stdout)
+
+	go func() {
+		defer close(outChan)
+		for scanner.Scan() {
+			outChan <- scanner.Text()
+		}
+
+		if err := scanner.Err(); err != nil {
+			log.Printf("scanner error %v\n", err)
+		}
+	}()
+	return outChan
+}
+
+func CpuTemperaturePrint() {
 	cmd := exec.Command("./cpu", "temperature")
 
 	stdout, err := cmd.StdoutPipe()
@@ -30,7 +57,6 @@ func CpuTemperature() {
 			fmt.Println("scanner error:", err)
 		}
 	}()
-
 	select {}
 }
 
@@ -56,23 +82,4 @@ func CpuFrequency() string {
 		fmt.Println("can't get the cpu frequency")
 	}
 	return string(cpuFreq)
-}
-
-func dataPage(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "data")
-}
-
-func wsEndpoint(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "websocket endpoint")
-}
-
-func setupRouters() {
-	http.HandleFunc("/", dataPage)
-	http.HandleFunc("ws", wsEndpoint)
-}
-
-func Run() {
-	fmt.Println("Websocket")
-	setupRouters()
-	log.Fatal(http.ListenAndServe(":8090", nil))
 }

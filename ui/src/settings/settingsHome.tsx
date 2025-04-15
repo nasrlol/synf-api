@@ -1,5 +1,5 @@
 import "./home.css";
-import navigation from "../settings_navigation/navigation.tsx";
+import navigation from "./settingsNav.tsx";
 
 function home() {
 	{
