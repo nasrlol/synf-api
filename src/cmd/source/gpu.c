@@ -3,16 +3,16 @@
  *
  *       Filename:  gpu.c
  *
- *    Description:  
+ *    Description: Retrieving the GPU information from the device  
  *
  *        Version:  1.0
  *        Created:  04/08/2025 01:00:38
  *       Revision:  none
  *       Compiler:  gcc
  *
- *         Author:  YOUR NAME (), 
- *   Organization:  
- *
+ *         Author:  nsrddyn 
+ *   Organization: SYNF 
+ * j
  * =====================================================================================
  */
 

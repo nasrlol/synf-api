@@ -3,22 +3,86 @@
  *
  *       Filename:  cpuc.c
  *
- *    Description: Retrieving cpu information from device 
+ *    Description: Retrieving cpu information from device
  *
  *        Version:  1.0
  *        Created:  04/08/2025 01:00:21
  *       Revision:  none
  *       Compiler:  gcc
  *
- *         Author:  nasr, 
- *   Organization:  synf 
+ *         Author:  nasr,
+ *   Organization:  synf
  *
- * =====================================================================================
- */
+ * ===================================================================================== */
+
+// OSX
+#ifdef __APPLE__
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+
+#include <stdio.h>
+#include <stdint.h>
+#include <sys/types.h>
+#include <sys/sysctl.h>
+
+uint64_t get_cpu_freq(void)
+{
+    uint64_t freq = 0;
+    size_t size = sizeof(freq);
+
+    if (sysctlbyname("hw.cpufrequency", &freq, &size, NULL, 0) < 0)
+    {
+        perror("sysctl");
+    }
+    return freq;
+}
+
+char* get_cpu_name(void)
+{
+    char* cpu_name;
+    size_t size = sizeof(cpu_name);
+    if (sysctlbyname("ker.hostname", &cpu_name, &size, NULL, 0) < 0)
+        perror("sysctl"); 
+
+    return cpu_name;  
+}
+
+void get_cpu_temperature(void)
+{
+    uint16_t cpu_temperature;
+    size_t size = sizeof(cpu_temperature);
+
+    if(())
+}
+
+int main(int argc, char **argv)
+{
+    if (argc > 1)
+    {
+        if (strcmp(argv[1], "frequency") == 0)
+        printf("argument received");
+    }
+    printf("%llu", get_cpu_freq());
+    return 0;
+}
+
+#endif
+
+// GNU/Linux
+#ifdef __gnu_linux__
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+
+#include <stdio.h>
+#include <stdint.h>
+#include <sys/types.h>
+#include <sys/sysctl.h>
 
 #define MAXC 1024
 
@@ -26,7 +90,7 @@ void cpu_name(void);
 void cpu_temperature(unsigned short delay);
 void cpu_frequency(unsigned short delay);
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
     if (argc > 1)
     {
@@ -40,14 +104,14 @@ int main(int argc, char** argv)
         {
             printf("starting the process of getting the CPU name\n");
             cpu_name();
-
         }
-        else if(strcmp(argv[1],"temperature") == 0)
+        else if (strcmp(argv[1], "temperature") == 0)
         {
             printf("CPU temperature:\n");
             cpu_temperature(1);
         }
-    } else 
+    }
+    else
         printf("no arguments passed, try again with : frequency, temperature or name");
     return 0;
 }
@@ -122,3 +186,5 @@ void cpu_frequency(unsigned short delay)
         fclose(pf);
     }
 }
+
+#endif

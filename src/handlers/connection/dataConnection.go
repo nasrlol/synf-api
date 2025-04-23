@@ -4,9 +4,7 @@ import (
 	"log"
 	"net/http"
 	"time"
-
 	sys "synf/handlers/data"
-
 	"github.com/gorilla/websocket"
 )
 
@@ -20,7 +18,7 @@ var upgrader = websocket.Upgrader{
 	},
 }
 
-func wsHandler(w http.ResponseWriter, r *http.Request) {
+func wsHandlerCPU(w http.ResponseWriter, r *http.Request) {
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		log.Printf("Error upgrading to WebSocket :%v\n", err)
@@ -39,7 +37,7 @@ func wsHandler(w http.ResponseWriter, r *http.Request) {
 func Init() {
 	server := &http.Server{
 		Addr:           ":8085",
-		Handler:        http.HandlerFunc(wsHandler),
+		Handler:        http.HandlerFunc(wsHandlerCPU),
 		ReadTimeout:    10 * time.Second,
 		WriteTimeout:   10 * time.Second,
 		MaxHeaderBytes: 1 << 20,

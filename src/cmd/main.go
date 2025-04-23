@@ -4,18 +4,43 @@ import (
 	"fmt"
 
 	//	sys "synf/handlers/data"
-	dataConnection "synf/handlers/connect"
+	dataConnection "synf/handlers/connection"
 	"synf/server"
+	"os/exec"
+	"os"
 )
 
-func main() {
-	fmt.Println("\033[H\033[2J")
+func runNpmDev(){
 
-	fmt.Println("Pulling CPU Temperature")
-	dataConnection.Init()
+	cmd := exec.Command("npm","run","dev")
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr 
+
+	err := cmd.Run()
+	if err != nil{
+		fmt.Errorf("coudlnt run npm")
+	}
+}
+
+func runAPI(){
 
 	server.RawConnect("127.0.0.1", "5000")
 	server.RegistrationEndpoint()
 	fmt.Println("API STARTED...")
 	fmt.Println(server.GetOutboundIp())
+
+}
+func getCPU(){
+
+	fmt.Println("Pulling CPU Temperature")
+	dataConnection.Init()
+
+}
+func main() {
+
+	fmt.Println("\033[H\033[2J")
+	getCPU()
+	runAPI()
+	fmt.Println("Welcome to the terminal envirment of SYNF")
+	
 }
