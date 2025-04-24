@@ -88,6 +88,7 @@ int main(int argc, char **argv)
 // macos file for getting system information
 
 #define MAXC 1024
+#define MAXC_CHAR 256
 
 void cpu_name(void);
 void cpu_temperature(unsigned short delay);
@@ -176,22 +177,40 @@ void cpu_temperature(unsigned short delay)
 
 void cpu_frequency(unsigned short delay)
 {
-    while (delay > 0)
+    while(1) 
     {
         sleep(delay);
-        FILE *pf = fopen("/proc/cpuinfo", "r");
-        // error handling in case of not being able to open the file
-        if (!pf)
-            printf("error reading /proc/cpuinfo");
+        char buffer[MAXC_CHAR];
+        FILE *fp = fopen("/proc/cpuinfo", "r");
+        if (!fp)
+            printf("can't open /proc/cpuinfo");
 
-        char buffer[MAXC];
-        while (fgets(buffer, sizeof(buffer), pf))
+        while (fgets(buffer, sizeof(buffer), fp))
         {
-            int a = atoi(buffer);
-            printf("CPU FREQ: %d\n", a);
+
+            if (strncmp(buffer, "cpu MHz", 10) == 0)
+            {
+                char *colon = strchr(buffer, ':');
+                if (colon)
+                {
+                    snprintf(buffer, MAXC_CHAR, "%s", colon + 2);
+                    buffer[strcspn(buffer, "\n")] = 0;
+                    int err = fclose(fp);
+                    if (err != 0)
+                        printf("error closing /proc/cpuinfo");
+
+                }
+            }
         }
-        fclose(pf);
+
+        fflush(stdout);
+        printf("%s", buffer);
+        snprintf(buffer, MAXC_CHAR, "%s", buffer);
+        // dont know what the snprintf is doing here but removing it gives a segmentation fault
+        // so im keeping it here :)
     }
 }
+
+
 
 #endif
