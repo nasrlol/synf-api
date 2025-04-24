@@ -65,7 +65,7 @@ int main(int argc, char **argv)
     if (argc > 1)
     {
         if (strcmp(argv[1], "frequency") == 0)
-        printf("argument received");
+            printf("argument received");
     }
     printf("%llu", get_cpu_freq());
     return 0;
@@ -138,12 +138,14 @@ void cpu_name(void)
             {
                 snprintf(cpu_name, buffer_size, "%s", colon + 2);
                 cpu_name[strcspn(cpu_name, "\n")] = 0;
-                fclose(fp);
+                int err = fclose(fp);
+                if (err != 0)
+                    printf("error closing /proc/cpuinfo");
+
             }
         }
     }
 
-    fclose(fp);
     printf("%s", cpu_name);
     snprintf(cpu_name, buffer_size, "%s", cpu_name);
     // dont know what the snprintf is doing here but removing it gives a segmentation fault
