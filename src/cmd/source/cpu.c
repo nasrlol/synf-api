@@ -15,6 +15,8 @@
  *
  * ===================================================================================== */
 
+
+typedef 
 // OSX
 #ifdef __APPLE__
 
@@ -82,7 +84,8 @@ int main(int argc, char **argv)
 #include <stdio.h>
 #include <stdint.h>
 #include <sys/types.h>
-#include <sys/sysctl.h>
+// #include <sys/sysctl.h>
+// macos file for getting system information
 
 #define MAXC 1024
 
@@ -125,7 +128,7 @@ void cpu_name(void)
     if (!fp)
         printf("can't open /proc/cpuinfo");
 
-    char line[256];
+    char line[buffer_size];
     while (fgets(line, sizeof(line), fp))
     {
         if (strncmp(line, "model name", 10) == 0)
@@ -141,8 +144,10 @@ void cpu_name(void)
     }
 
     fclose(fp);
-    snprintf(cpu_name, buffer_size, "Unknown");
     printf("%s", cpu_name);
+    snprintf(cpu_name, buffer_size, "%s", cpu_name);
+    // dont know what the snprintf is doing here but removing it gives a segmentation fault
+    // so im keeping it here :)
 }
 
 void cpu_temperature(unsigned short delay)
