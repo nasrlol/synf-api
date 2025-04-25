@@ -1,11 +1,11 @@
-package dataConnection
+package dataWebsocket
 
 import (
+	"github.com/gorilla/websocket"
 	"log"
 	"net/http"
-	"time"
 	sys "synf/handlers/data"
-	"github.com/gorilla/websocket"
+	"time"
 )
 
 var upgrader = websocket.Upgrader{

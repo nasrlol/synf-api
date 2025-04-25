@@ -2,27 +2,26 @@ package main
 
 import (
 	"fmt"
+	dataConnection "synf/handlers/connection/dataWebsocket"
 
-	//	sys "synf/handlers/data"
-	dataConnection "synf/handlers/connection"
-	"synf/server"
-	"os/exec"
 	"os"
+	"os/exec"
+	"synf/server"
 )
 
-func runNpmDev(){
+func runNpmDev() {
 
-	cmd := exec.Command("npm","run","dev")
+	cmd := exec.Command("npm", "run", "dev")
 	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr 
+	cmd.Stderr = os.Stderr
 
 	err := cmd.Run()
-	if err != nil{
+	if err != nil {
 		fmt.Errorf("coudlnt run npm")
 	}
 }
 
-func runAPI(){
+func runAPI() {
 
 	server.RawConnect("127.0.0.1", "5000")
 	server.RegistrationEndpoint()
@@ -30,7 +29,7 @@ func runAPI(){
 	fmt.Println(server.GetOutboundIp())
 
 }
-func getCPU(){
+func getCPU() {
 
 	fmt.Println("Pulling CPU Temperature")
 	dataConnection.Init()
@@ -42,5 +41,5 @@ func main() {
 	getCPU()
 	runAPI()
 	fmt.Println("Welcome to the terminal envirment of SYNF")
-	
+
 }

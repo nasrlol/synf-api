@@ -1,4 +1,4 @@
-package auth
+package register
 
 import (
 	"encoding/json"
@@ -47,7 +47,7 @@ func insertUser(data userInformation) error {
 		return fmt.Errorf("db is nil 501")
 	}
 
-	query := `INSERT INTO USER (user_name, user_password, user_role, user_email) VALUES (?, ?, ?, ?)`
+	query := `INSERT INTO USER (name, password, `function`, email) VALUES (?, ?, ?, ?)`
 	fmt.Println("inserting the information into the database")
 	db.Exec(query, data.UserName, data.UserPassword, boolToInt(data.UserRole), data.UserEmail)
 
@@ -67,7 +67,7 @@ func UserReg(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	}
 
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.UserPassword), bcrypt.DefaultCost)
-	fmt.Println("hasing the user password...")
+	fmt.Println("hashing the user password...")
 	if err != nil {
 		http.Error(w, "Error hashing password", http.StatusInternalServerError)
 		return
@@ -93,7 +93,7 @@ func selectUser(data userInformation) userInformation {
 		return userInformation{}
 	}
 
-	query := "SELECT EXISTS(SELECT 1 FROM USER WHERE user_id = ?)"
+	query := "SELECT EXISTS(SELECT 1 FROM USER WHERE id = ?)"
 	row := db.QueryRow(query, string(data.UserID))
 
 	err = row.Scan(&data.UserName, &data.UserPassword, &data.UserRole, &data.UserEmail)
@@ -105,9 +105,9 @@ func selectUser(data userInformation) userInformation {
 	}
 }
 
-func GetUser(w http.ResponseWriter, r *http.Request, ps httprouter.Params)  {
+func GetUser(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
-	var	data userInformation	
+	var data userInformation
 	data = selectUser(data)
 
 	w.Header().Set("Content-Type", "application/json")
