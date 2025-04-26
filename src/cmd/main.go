@@ -39,7 +39,7 @@ func main() {
 
 	fmt.Println("\033[H\033[2J")
 	getCPU()
-	runAPI()
+	go runAPI()
 	fmt.Println("Welcome to the terminal envirment of SYNF")
 
 }
