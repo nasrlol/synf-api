@@ -5,7 +5,7 @@ import (
 	"log"
 	"net"
 	"net/http"
-	"synf/handlers/register"
+	"synf/api/register"
 	"time"
 
 	"github.com/julienschmidt/httprouter"

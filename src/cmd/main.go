@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	dataConnection "synf/handlers/connection/dataWebsocket"
+	dataConnection "synf/api/connection/dataWebsocket"
 
 	"os"
 	"os/exec"
@@ -40,6 +40,6 @@ func main() {
 	fmt.Println("\033[H\033[2J")
 	getCPU()
 	go runAPI()
-	fmt.Println("Welcome to the terminal envirment of SYNF")
+	fmt.Println("Welcome to the terminal environment of SYNF")
 
 }
