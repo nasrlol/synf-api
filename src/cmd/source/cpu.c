@@ -193,20 +193,19 @@ void cpu_frequency(unsigned short delay)
                 char *colon = strchr(buffer, ':');
                 if (colon)
                 {
-                    snprintf(buffer, MAXC_CHAR, "%s", colon + 2);
+                    snprintf(buffer, MAXC_CHAR, "%s", colon);
                     buffer[strcspn(buffer, "\n")] = 0;
                     int err = fclose(fp);
                     if (err != 0)
                         printf("error closing /proc/cpuinfo");
+                    fflush(stdout);
+                    printf("%s", colon);
 
                 }
             }
         }
 
-        fflush(stdout);
-        printf("%s", buffer);
-        snprintf(buffer, MAXC_CHAR, "%s", buffer);
-        // dont know what the snprintf is doing here but removing it gives a segmentation fault
+       // dont know what the snprintf is doing here but removing it gives a segmentation fault
         // so im keeping it here :)
     }
 }
