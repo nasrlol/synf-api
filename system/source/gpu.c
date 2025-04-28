@@ -17,8 +17,6 @@
  */
 
 #include <stdlib.h>
-#include <stdio.h>
-
 #define MAXC 1024
 
 void gpu_name(void);

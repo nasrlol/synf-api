@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
@@ -47,10 +48,12 @@ func ConnectDB() (*sql.DB, error) {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", credentials.User, credentials.Pass, credentials.Ip, credentials.Port, credentials.Name)
 
 	fmt.Println(credentials.Ip, credentials.User, credentials.Ip, credentials.Port, credentials.Name)
+
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Failed to connect to the database")	
 	}
+
 
 	// Check connection
 	if err = db.Ping(); err != nil {
@@ -62,6 +65,21 @@ func ConnectDB() (*sql.DB, error) {
 		return nil, err
 	}
 
+	db.SetConnMaxIdleTime(time.Minute * 3)
+	db.SetMaxOpenConns(10)
+	db.SetMaxIdleConns(10)
+
 	fmt.Println("Connected to MySQL")
 	return db, nil
 }
+
+// returns the database statistics
+func Stats(db *sql.DB) (sql.DBStats){
+
+	return db.Stats() 
+}
+
+func CloseDb(db *sql.DB) {
+	db.Close()
+}
+

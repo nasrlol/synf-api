@@ -16,4 +16,24 @@
  * =====================================================================================
  */
 #include <stdlib.h>
+#include <stdio.h>
 
+
+struct cpu {
+    char* memName;
+    int memSize;
+};
+
+int getFreeMem(void);
+int getTotalMem(void);
+int getMemFreq(void);
+
+int main()
+{
+    return 0;
+}
+
+int getFreeMem(){
+    printf("hello world");
+    return 0;
+}

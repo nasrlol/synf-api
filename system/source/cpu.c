@@ -56,7 +56,6 @@ void get_cpu_temperature(void)
     uint16_t cpu_temperature;
     size_t size = sizeof(cpu_temperature);
 
-    if(())
 }
 
 int main(int argc, char **argv)

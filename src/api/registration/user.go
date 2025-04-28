@@ -19,7 +19,7 @@ func boolToInt(value bool) int {
 	return 0
 }
 
-type userInformation struct {
+type UserInformation struct {
 	UserID            uint8  `json:"id"`
 	UserName          string `json:"user_name"`
 	UserRole          bool   `json:"user_role"`
@@ -36,7 +36,7 @@ type LOGIN struct {
 	Name string
 }
 
-func insertUser(data userInformation) error {
+func insertUser(data UserInformation) error {
 	conn, err := db.ConnectDB()
 	if err != nil {
 		return err
@@ -61,7 +61,7 @@ func insertUser(data userInformation) error {
 }
 
 func UserReg(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	var user userInformation
+	var user UserInformation
 
 	err := json.NewDecoder(r.Body).Decode(&user)
 	fmt.Println("converting user information to json...")
@@ -90,11 +90,11 @@ func UserReg(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	})
 }
 
-func selectUser(data userInformation) userInformation {
+func selectUser(data UserInformation) UserInformation {
 
 	db, err := db.ConnectDB()
 	if err != nil {
-		return userInformation{}
+		return UserInformation{}
 	}
 
 	query := "SELECT EXISTS(SELECT 1 FROM USER WHERE id = ?)"
@@ -102,16 +102,16 @@ func selectUser(data userInformation) userInformation {
 
 	err = row.Scan(&data.UserName, &data.UserPassword, &data.UserRole, &data.UserEmail)
 	if err != nil {
-		return userInformation{}
+		return UserInformation{}
 	} else {
-		return userInformation{}
+		return UserInformation{}
 
 	}
 }
 
 func GetUser(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
-	var data userInformation
+	var data UserInformation
 	data = selectUser(data)
 
 	w.Header().Set("Content-Type", "application/json")
