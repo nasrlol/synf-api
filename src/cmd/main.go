@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	dataConnection "synf/api/connection/dataWebsocket"
+	dataConnection "synf/api/ws"
 
 	"os"
 	"os/exec"
@@ -17,7 +17,7 @@ func runNpmDev() {
 
 	err := cmd.Run()
 	if err != nil {
-		fmt.Errorf("coudlnt run npm")
+		fmt.Errorf("couldn't run npm")
 	}
 }
 
@@ -38,8 +38,8 @@ func getCPU() {
 func main() {
 
 	fmt.Println("\033[H\033[2J")
-	getCPU()
+	go getCPU()
 	go runAPI()
-	fmt.Println("Welcome to the terminal environment of SYNF")
+	fmt.Println("Welcome to the terminal environment of synf")
 
 }

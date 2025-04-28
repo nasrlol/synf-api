@@ -5,7 +5,7 @@ import (
 	"log"
 	"net"
 	"net/http"
-	"synf/api/register"
+	"synf/api/registration"
 	"time"
 
 	"github.com/julienschmidt/httprouter"
@@ -17,8 +17,8 @@ func UserLog(w http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
 
 func RegistrationEndpoint() {
 	router := httprouter.New()
-	router.GET("/user/login", register.GetUser)
-	router.POST("/user/register", register.UserReg)
+	router.GET("/user/login", registration.GetUser)
+	router.POST("/user/registration", registration.UserReg)
 
 	log.Fatal(http.ListenAndServe(":8080", router))
 }

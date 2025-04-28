@@ -16,7 +16,6 @@
  * ===================================================================================== */
 
 
-typedef 
 // OSX
 #ifdef __APPLE__
 
@@ -85,14 +84,14 @@ int main(int argc, char **argv)
 #include <stdint.h>
 #include <sys/types.h>
 // #include <sys/sysctl.h>
-// macos file for getting system information
+// macOS file for getting system information
 
 #define MAXC 1024
 #define MAXC_CHAR 256
 
 void cpu_name(void);
 void cpu_temperature(unsigned short delay);
-void cpu_frequency(unsigned short delay);
+char* cpu_frequency(void);
 
 int main(int argc, char **argv)
 {
@@ -100,8 +99,12 @@ int main(int argc, char **argv)
     {
         if (strcmp(argv[1], "frequency") == 0)
         {
-            cpu_frequency(1);
             printf("starting the process of getting the CPU frequency\n");
+            while (1) {
+
+                sleep(1);
+                printf("%s", cpu_frequency());
+            }
         }
 
         else if (strcmp(argv[1], "name") == 0)
@@ -175,41 +178,29 @@ void cpu_temperature(unsigned short delay)
     }
 }
 
-void cpu_frequency(unsigned short delay)
-{
-    while(1) 
-    {
-        sleep(delay);
-        char buffer[MAXC_CHAR];
-        FILE *fp = fopen("/proc/cpuinfo", "r");
-        if (!fp)
-            printf("can't open /proc/cpuinfo");
+char* cpu_frequency(void) {
+    char* buffer = malloc(MAXC_CHAR);
 
-        while (fgets(buffer, sizeof(buffer), fp))
+    FILE *fp = fopen("/proc/cpuinfo", "r");
+    if (!fp) {
+        printf("can't open /proc/cpuinfo");
+        return NULL;
+    }
+
+    while (fgets(buffer, MAXC_CHAR, fp)) {
+        if (strstr(buffer, "cpu MHz") != NULL)
         {
-
-            if (strncmp(buffer, "cpu MHz", 10) == 0)
+            char *colon = strchr(buffer, ':');
+            if (colon)
             {
-                char *colon = strchr(buffer, ':');
-                if (colon)
-                {
-                    snprintf(buffer, MAXC_CHAR, "%s", colon);
-                    buffer[strcspn(buffer, "\n")] = 0;
-                    int err = fclose(fp);
-                    if (err != 0)
-                        printf("error closing /proc/cpuinfo");
-                    fflush(stdout);
-                    printf("%s", colon);
-
-                }
+                buffer[strcspn(buffer, "\n")] = 0;
+                snprintf(buffer, MAXC_CHAR, "%s", colon);
             }
         }
 
-       // dont know what the snprintf is doing here but removing it gives a segmentation fault
-        // so im keeping it here :)
+    fclose(fp);
+    return buffer;
     }
 }
-
-
 
 #endif

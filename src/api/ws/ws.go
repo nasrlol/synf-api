@@ -1,10 +1,10 @@
-package dataWebsocket
+package ws
 
 import (
 	"github.com/gorilla/websocket"
 	"log"
 	"net/http"
-	sys "synf/api/data"
+	sys "synf/api/data/cpu"
 	"time"
 )
 

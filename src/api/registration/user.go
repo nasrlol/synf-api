@@ -1,6 +1,7 @@
-package register
+package registration
 
 import (
+	"database/sql"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -9,7 +10,6 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/julienschmidt/httprouter"
 	"golang.org/x/crypto/bcrypt"
-	"synf/logs"
 )
 
 func boolToInt(value bool) int {
@@ -37,19 +37,24 @@ type LOGIN struct {
 }
 
 func insertUser(data userInformation) error {
-	db, err := db.ConnectDB()
+	conn, err := db.ConnectDB()
 	if err != nil {
 		return err
 	}
-	if db != nil {
-		defer db.Close()
+	if conn != nil {
+		defer func(conn *sql.DB) {
+			err := conn.Close()
+			if err != nil {
+
+			}
+		}(conn)
 	} else {
 		return fmt.Errorf("db is nil 501")
 	}
 
-	query := `INSERT INTO USER (name, password, `function`, email) VALUES (?, ?, ?, ?)`
+	query := `INSERT INTO USER (name, password, user_role, email) VALUES (?, ?, ?, ?)`
 	fmt.Println("inserting the information into the database")
-	db.Exec(query, data.UserName, data.UserPassword, boolToInt(data.UserRole), data.UserEmail)
+	conn.Exec(query, data.UserName, data.UserPassword, boolToInt(data.UserRole), data.UserEmail)
 
 	fmt.Println("User inserted successfully!")
 	return nil
@@ -61,7 +66,6 @@ func UserReg(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	err := json.NewDecoder(r.Body).Decode(&user)
 	fmt.Println("converting user information to json...")
 	if err != nil {
-		logs.Log(fmt.Errorf("failed to convert user information to json"))
 		http.Error(w, "Invalid input", http.StatusBadRequest)
 		return
 	}

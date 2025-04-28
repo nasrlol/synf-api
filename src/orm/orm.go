@@ -1,13 +1,19 @@
 package orm
 
-func connectToDB() {
-
-}
+import (
+	db "synf/database"
+)
 
 func selectUser() {
 
 }
 
 func userDevice() {
+
+}
+
+func init() {
+
+	db.ConnectDB()
 
 }

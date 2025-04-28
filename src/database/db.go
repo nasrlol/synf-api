@@ -10,9 +10,6 @@ import (
 	"github.com/joho/godotenv"
 )
 
-
-
-
 type UserInformation struct {
 	UserID            uint8  `json:"id"`
 	UserName          string `json:"user_name"`
@@ -29,7 +26,6 @@ type LOGIN struct {
 	Port string
 	Name string
 }
-
 
 func loadCredentials() LOGIN {
 	err := godotenv.Load("../secret.env")
