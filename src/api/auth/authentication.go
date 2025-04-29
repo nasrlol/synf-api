@@ -19,3 +19,13 @@ func GetUser(userName string) reg.UserInformation{
 
 	return userInfo
 }
+
+func userNameInput() string {
+	
+	return "hello world"
+}
+
+func checkPass(encryptedPass string) bool{
+
+	return true
+}
