@@ -51,9 +51,8 @@ func ConnectDB() (*sql.DB, error) {
 
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
-		return nil, fmt.Errorf("Failed to connect to the database")	
+		return nil, fmt.Errorf("Failed to connect to the database")
 	}
-
 
 	// Check connection
 	if err = db.Ping(); err != nil {
@@ -74,12 +73,11 @@ func ConnectDB() (*sql.DB, error) {
 }
 
 // returns the database statistics
-func Stats(db *sql.DB) (sql.DBStats){
+func Stats(db *sql.DB) sql.DBStats {
 
-	return db.Stats() 
+	return db.Stats()
 }
 
 func CloseDb(db *sql.DB) {
 	db.Close()
 }
-
