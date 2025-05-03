@@ -4,7 +4,7 @@ import (
 	"github.com/gorilla/websocket"
 	"log"
 	"net/http"
-	data "synf/api/data"
+	"synf/internal/api/data"
 	"time"
 )
 

@@ -7,12 +7,12 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-func GetUser(userName string) reg.UserInformation{
+func GetUser(userName string) reg.UserInformation {
 
-	var	userInfo reg.UserInformation
+	var userInfo reg.UserInformation
 	query := "SELECT user.id FROM user WHERE name LIKE ?"
 
-	conn, err := db.ConnectDB()	
+	conn, err := db.ConnectDB()
 	if err != nil {
 		return reg.UserInformation{}
 	}
@@ -23,18 +23,18 @@ func GetUser(userName string) reg.UserInformation{
 	return userInfo
 }
 
-func CheckPass(pass string, data reg.UserInformation) (bool) {
+func CheckPass(pass string, data reg.UserInformation) bool {
 
 	query := "SELECT ? FROM ? WHERE ? LIKE ?"
 
-	conn, err := db.ConnectDB()	
+	conn, err := db.ConnectDB()
 	if err != nil {
-		return false 
+		return false
 	}
 
 	queryError := conn.QueryRow(query, data.UserID, "USER", data.UserPassword, pass)
 	if queryError != nil {
 		return false
-	}	
-	return true 
+	}
+	return true
 }
