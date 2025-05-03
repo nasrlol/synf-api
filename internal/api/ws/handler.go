@@ -24,7 +24,12 @@ func wsHandlerCPU(w http.ResponseWriter, r *http.Request) {
 		log.Printf("Error upgrading to WebSocket :%v\n", err)
 		return
 	}
-	defer conn.Close()
+	defer func(conn *websocket.Conn) {
+		err := conn.Close()
+		if err != nil {
+
+		}
+	}(conn)
 
 	for dt := range data.CpuTemperature() {
 		if err := conn.WriteMessage(websocket.TextMessage, []byte(dt)); err != nil {

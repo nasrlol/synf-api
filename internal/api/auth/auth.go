@@ -1,8 +1,8 @@
 package auth
 
 import (
-	reg "synf/api/registration"
-	db "synf/database"
+	reg "synf/internal/api/registration"
+	db "synf/internal/database"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -17,7 +17,7 @@ func GetUser(userName string) reg.UserInformation {
 		return reg.UserInformation{}
 	}
 
-	row := conn.QueryRow(query, string(userName))
+	row := conn.QueryRow(query, userName)
 	err = row.Scan(&userInfo.UserName)
 
 	return userInfo

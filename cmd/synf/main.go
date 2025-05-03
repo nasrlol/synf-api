@@ -2,24 +2,9 @@ package main
 
 import (
 	"fmt"
-	dataConnection "synf/api/ws"
-
-	"os"
-	"os/exec"
-	"synf/server"
+	dataConnection "synf/internal/api/ws"
+	"synf/internal/server"
 )
-
-func runNpmDev() {
-
-	cmd := exec.Command("npm", "run", "dev")
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-
-	err := cmd.Run()
-	if err != nil {
-		fmt.Errorf("couldn't run npm")
-	}
-}
 
 func runAPI() {
 

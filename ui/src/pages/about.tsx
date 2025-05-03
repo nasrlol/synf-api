@@ -1,5 +1,3 @@
-import "./about.css";
-
 function about() {
 	return (
 		<section className="about">

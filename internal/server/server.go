@@ -5,7 +5,7 @@ import (
 	"log"
 	"net"
 	"net/http"
-	"synf/api/registration"
+	"synf/internal/api/registration"
 	"time"
 
 	"github.com/julienschmidt/httprouter"
@@ -28,7 +28,9 @@ func GetOutboundIp() net.IP {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer conn.Close()
+	defer func(conn net.Conn) {
+		_ = conn.Close()
+	}(conn)
 
 	localAddr := conn.LocalAddr().(*net.UDPAddr)
 
@@ -42,7 +44,9 @@ func RawConnect(host string, port string) {
 		fmt.Println("Connecting error:", err)
 	}
 	if conn != nil {
-		defer conn.Close()
+		defer func(conn net.Conn) {
+			_ = conn.Close()
+		}(conn)
 		fmt.Println("Opened", net.JoinHostPort(host, port))
 	}
 }

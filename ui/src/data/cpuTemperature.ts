@@ -1,7 +1,7 @@
 const output = document.getElementById("cpu-temperature");
 
 // instance of returns a boolean
-// incase the output is null
+// in case the output is null
 if (output instanceof HTMLElement) {
 	const socket = new WebSocket("ws://localhost:8085");
 
