@@ -4,7 +4,7 @@ import (
 	"github.com/gorilla/websocket"
 	"log"
 	"net/http"
-	sys "synf/api/data/cpu"
+	data "synf/api/data"
 	"time"
 )
 
@@ -26,8 +26,8 @@ func wsHandlerCPU(w http.ResponseWriter, r *http.Request) {
 	}
 	defer conn.Close()
 
-	for data := range sys.CpuTemperature() {
-		if err := conn.WriteMessage(websocket.TextMessage, []byte(data)); err != nil {
+	for dt := range data.CpuTemperature() {
+		if err := conn.WriteMessage(websocket.TextMessage, []byte(dt)); err != nil {
 			log.Printf("error writing the message over the websocket: %v\n", err)
 			break
 		}

@@ -1,4 +1,4 @@
-package cpu
+package data 
 
 import (
 	"bufio"
@@ -14,7 +14,26 @@ type CpuInformation struct{
 	CpuFreq	uint8	`json:"cpu_freq"`
 }
 
+type GpuInformation struct{
+	CpuID	uint8	`json:"cpu_id"`
+	CpuName	string	`json:"cpu_name"`
+	CpuTemp	uint8	`json:"cpu_temp"`
+	CpuFreq	uint8	`json:"cpu_freq"`
+}
 
+type RamInformation struct{
+	CpuID	uint8	`json:"cpu_id"`
+	CpuName	string	`json:"cpu_name"`
+	CpuTemp	uint8	`json:"cpu_temp"`
+	CpuFreq	uint8	`json:"cpu_freq"`
+}
+
+type DiskInformation struct{
+	CpuID	uint8	`json:"disk_id"`
+	CpuName	string	`json:"disk_name"`
+	CpuTemp	uint8	`json:"disk_temp"`
+	CpuFreq	uint8	`json:"disk_speed"`
+} 
 
 func CpuTemperature() <-chan string {
 	outChan := make(chan string)

@@ -1,13 +1,12 @@
-import "./dashboard.css";
 import CpuTemperature from "./cpuTempCard";
 
-function dashboard() {
+async function dashboard() {
 	return (
 		<>
 			<div className="dashboard">
 				<div className="card">
 					<h3>CPU Usage</h3>
-					<p className="stat-value">{CpuTemperature()}</p>
+					<p className="stat-value">{await CpuTemperature()}</p>
 				</div>
 				<div className="card">
 					<h3>CPU Temperature</h3>
