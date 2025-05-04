@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import './cpuTempCard.css'
 
 const CpuTemperature: React.FC = () => {
 	const [logs, setLogs] = useState("");
