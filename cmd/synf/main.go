@@ -23,8 +23,8 @@ func getCPU() {
 func main() {
 
 	fmt.Println("\033[H\033[2J")
-	go getCPU()
-	go runAPI()
+	getCPU()
+	runAPI()
 	fmt.Println("Welcome to the terminal environment of synf")
 
 }

@@ -1,5 +1,4 @@
-import './dashboard.css'
-
+import "./dashboard.css";
 
 function dashboard() {
 	return (
@@ -7,7 +6,7 @@ function dashboard() {
 			<div className="dashboard">
 				<div className="card">
 					<h3>CPU Usage</h3>
-					<p className="stat-value" ></p>
+					<p className="stat-value"></p>
 				</div>
 				<div className="card">
 					<h3>CPU Temperature</h3>
