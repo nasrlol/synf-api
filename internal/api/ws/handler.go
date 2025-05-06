@@ -1,11 +1,13 @@
 package ws
 
 import (
-	"github.com/gorilla/websocket"
+	"fmt"
 	"log"
 	"net/http"
 	"synf/internal/api/data"
 	"time"
+
+	"github.com/gorilla/websocket"
 )
 
 var upgrader = websocket.Upgrader{
@@ -39,7 +41,8 @@ func wsHandlerCPU(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func Init() {
+func InitCPU() {
+	fmt.Println("initalizing the websocket and serving the cpu handler")
 	server := &http.Server{
 		Addr:           ":8085",
 		Handler:        http.HandlerFunc(wsHandlerCPU),

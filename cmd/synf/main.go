@@ -17,7 +17,8 @@ func runAPI() {
 func getCPU() {
 
 	fmt.Println("Pulling CPU Temperature")
-	dataConnection.Init()
+	dataConnection.InitCPU()
+
 
 }
 func main() {
