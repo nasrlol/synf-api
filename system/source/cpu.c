@@ -60,6 +60,8 @@ void get_cpu_temperature(void)
 
 int main(int argc, char **argv)
 {
+
+    printf("compiled for __APPLE__");
     if (argc > 1)
     {
         if (strcmp(argv[1], "frequency") == 0)
@@ -82,8 +84,6 @@ int main(int argc, char **argv)
 #include <stdio.h>
 #include <stdint.h>
 #include <sys/types.h>
-// #include <sys/sysctl.h>
-// macOS file for getting system information
 
 #define MAXC 1024
 #define MAXC_CHAR 256
@@ -94,6 +94,7 @@ char* cpu_frequency(void);
 
 int main(int argc, char **argv)
 {
+    printf("compiled for __gnu_linux__");
     if (argc > 1)
     {
         if (strcmp(argv[1], "frequency") == 0)
