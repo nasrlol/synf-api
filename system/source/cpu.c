@@ -201,6 +201,7 @@ char* cpu_frequency(void) {
     fclose(fp);
     return buffer;
     }
+    return NULL;
 }
 
 #endif
