@@ -70,6 +70,8 @@ int main()
 
 #include <stdio.h> 
 #include <string.h>
+#include <stdlib.h>
+#include <sys/sysinfo.h>
 
 
 typedef struct {
@@ -79,20 +81,16 @@ typedef struct {
   double mem_freq;
 } ram;
 
-char* mem_name(void);
-long mem_size(void);
-long av_mem_size(void);
+unsigned long tot_mem_size(void);
+unsigned long av_mem_size(void);
 float mem_freq(void);
 
 int main(int argc, char** argv)
 {
   if (argc < 1)
   {
-    if (strcmp(*argv, "name") == 0)
-    {
-      printf("%s", mem_name()); 
-    } else if (strcmp(*argv, "size")) {
-      printf("%lu", mem_size());
+    if (strcmp(*argv, "size")) {
+      printf("%lu", tot_mem_size());
     } else if (strcmp(*argv, "available"))
     {
       printf("%lu", av_mem_size());
@@ -102,4 +100,19 @@ int main(int argc, char** argv)
   }
   return 0;
 }
+
+unsigned long tot_mem_size(void) 
+{
+  struct sysinfo info;
+
+  return info.totalram;
+}
+
+unsigned long av_mem_size(void)
+{
+  struct sysinfo info;
+
+  return info.freeram;
+}
+
 #endif
