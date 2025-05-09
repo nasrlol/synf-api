@@ -7,6 +7,11 @@ import (
 	"os/exec"
 )
 
+type DeviceInformation struct {
+	DeviceID uint8  `json:"device_id"`
+	UpTime   string `json:"device_upTime"`
+}
+
 type CpuInformation struct {
 	CpuID   uint8  `json:"cpu_id"`
 	CpuName string `json:"cpu_name"`
@@ -15,24 +20,54 @@ type CpuInformation struct {
 }
 
 type GpuInformation struct {
-	CpuID   uint8  `json:"cpu_id"`
-	CpuName string `json:"cpu_name"`
-	CpuTemp uint8  `json:"cpu_temp"`
-	CpuFreq uint8  `json:"cpu_freq"`
+	GpuID   uint8  `json:"cpu_id"`
+	GpuName string `json:"cpu_name"`
+	GpuTemp uint8  `json:"cpu_temp"`
+	GpuFreq uint8  `json:"cpu_freq"`
 }
 
 type RamInformation struct {
-	CpuID   uint8  `json:"cpu_id"`
-	CpuName string `json:"cpu_name"`
-	CpuTemp uint8  `json:"cpu_temp"`
-	CpuFreq uint8  `json:"cpu_freq"`
+	RamID   uint8  `json:"cpu_id"`
+	RamName string `json:"cpu_name"`
+	RamTemp uint8  `json:"cpu_temp"`
+	RamFreq uint8  `json:"cpu_freq"`
 }
 
 type DiskInformation struct {
-	CpuID   uint8  `json:"disk_id"`
-	CpuName string `json:"disk_name"`
-	CpuTemp uint8  `json:"disk_temp"`
-	CpuFreq uint8  `json:"disk_speed"`
+	DiskID    uint8  `json:"disk_id"`
+	DiskName  string `json:"disk_name"`
+	DiskTemp  uint8  `json:"disk_temp"`
+	DiskSpeed uint8  `json:"disk_speed"`
+}
+
+func DeviceUpTime() <-chan string {
+	outchan := make(chan string)
+
+	cmd := exec.Command("./general")
+
+	stdout, err := cmd.StdoutPipe()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if err := cmd.Start(); err != nil {
+		log.Fatal(err)
+	}
+
+	scanner := bufio.NewScanner(stdout)
+	go func() {
+		defer close(outchan)
+		for scanner.Scan() {
+
+			outchan <- scanner.Text()
+		}
+
+		if err := scanner.Err(); err != nil {
+			log.Printf("scanner error %v\n", err)
+		}
+	}()
+
+	return outchan
 }
 
 func CpuTemperature() <-chan string {
