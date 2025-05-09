@@ -1,15 +1,12 @@
-.login > form {
-	display: flex;
-	align-items: center;
-	gap: 50px;
-	flex-direction: column;
-	justify-content: center;
-	background-color: white;
-	border-radius: 10px;
+main {
+	border: none;
 }
 
-.login,
-.signup {
+.reg button a {
+	color: #1d1d1d;
+}
+
+.reg {
 	background: white;
 	padding: 30px;
 	border-radius: 10px;
@@ -22,26 +19,31 @@
 	margin-top: 30%;
 }
 
-.loginButton {
-	text-transform: uppercase;
-}
-.login input {
+.reg input {
 	width: 100%;
 	padding: 10px;
 	margin: 10px 0;
 	border: 1px solid #ccc;
+	color: #1d1d1d;
 	border-radius: 5px;
 	font-size: 16px;
 }
 
-.login button {
+.reg .loginButton {
 	width: 100%;
-	background: none;
+	padding: 12px;
+	color: #272927;
+	background-color: white;
 	border: none;
-	font-size: 14px;
+	border-radius: 5px;
+	font-size: 16px;
+	cursor: pointer;
 	margin-top: 10px;
 }
 
-.login button a {
-	color: #1d1d1d;
+.reg button {
+	width: 100%;
+	background: none;
+	font-size: 14px;
+	margin-top: 10px;
 }

@@ -1,15 +1,17 @@
+import "./public.css";
 import { Link } from "react-router-dom";
-import './signup.css'
 
 function signin() {
 	return (
 		<>
-			<section className="signup">
+			<section className="reg">
 				<form>
 					<input type="text" name="txt" placeholder="User name" required />
 					<input type="email" name="email" placeholder="Email" required />
 					<input type="password" name="pswd" placeholder="Password" required />
-					<button className={"loginButton"}>Sign up</button>
+					<button>
+						<Link to="/signup">Sign up</Link>
+					</button>
 				</form>
 				<button>
 					<Link to="/login">Already have an account?</Link>

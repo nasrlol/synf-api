@@ -5,11 +5,11 @@
 	font-synthesis: none;
 	line-height: 1.2;
 	min-width: 100vh;
-	background-color: #ffffff;
+	background-color: #2a3b44;
 }
 
 * {
-	color: #000000;
+	color: #dddddd;
 	font-family: "Roboto", sans-serif;
 	font-optical-sizing: auto;
 	font-style: normal;

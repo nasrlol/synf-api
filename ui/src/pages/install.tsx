@@ -9,9 +9,6 @@ function install() {
 				<p>Before you begin, ensure you have the following installed on your system:</p>
 				<ul>
 					<li>
-						<strong>Node.js </strong> & npm (for the React frontend)
-					</li>
-					<li>
 						<strong>Go </strong> (for the API server)
 					</li>
 					<li>
@@ -23,44 +20,12 @@ function install() {
 					<li>
 						<strong>Git</strong> (to clone the repository)
 					</li>
-					<li>
-						<strong>Docker</strong> (optional, for containerized deployment)
-					</li>
 				</ul>
 
-				<h2 className="install_h2">Clone the Repository</h2>
+				<h2>Clone the Repository</h2>
 				<pre>
 					<code>git clone https://github.com/nasrlol/synf.git cd synf</code>
 				</pre>
-
-				<h2 className="install_h2">Setup MariaDB</h2>
-				<p>Start MariaDB Server (If not installed, install it first):</p>
-				<pre>
-					<code>sudo systemctl start mariadb sudo systemctl enable mariadb</code>
-				</pre>
-
-				<p>Log in to the MariaDB shell:</p>
-				<pre>
-					<code>mysql -u root -p</code>
-				</pre>
-
-				<p>Execute the following SQL commands:</p>
-				<pre>
-					<code>
-						CREATE DATABASE system_stats; CREATE USER 'app_user'@'%' IDENTIFIED BY 'secure password'
-					</code>
-					<br />
-					<code>; GRANT ALL PRIVILEGES ON system_stats.* TO 'app_user'@'%'; FLUSH PRIVILEGES; exit;</code>
-				</pre>
-
-				<h2>Set up the Backend (C Server)</h2>
-				<pre>
-					<code>cd backend make ./backend_server</code>
-				</pre>
-				<p>
-					By default, the backend listens on <strong>port 5000</strong>.
-				</p>
-
 				<h2>Set up the API (Go Server)</h2>
 				<pre>
 					<code>cd api go mod tidy go run main.go</code>
@@ -77,17 +42,6 @@ function install() {
 					By default, the frontend is available at <strong>http://localhost:3000</strong>.
 				</p>
 
-				<h2>Configuration</h2>
-				<p>
-					Create a <code>.env</code> file in the root directory and configure it:
-				</p>
-				<pre>
-					<code>
-						DATABASE_URL=mariadb://app_user:securepassword@localhost/system_stats
-						API_URL=http://localhost:8080 BACKEND_URL=http://localhost:5000
-					</code>
-				</pre>
-
 				<h2>Access the Application</h2>
 				<ul>
 					<li>
@@ -98,28 +52,6 @@ function install() {
 						respectively.
 					</li>
 				</ul>
-
-				<h2>Optional: Docker Deployment</h2>
-				<pre>
-					<code>docker-compose up --build</code>
-				</pre>
-
-				<h2>Troubleshooting</h2>
-				<ul>
-					<li>
-						Ensure MariaDB is running: <code>sudo systemctl status mariadb</code>
-					</li>
-					<li>
-						Verify Go API is accessible: <code>curl http://localhost:8080/health</code>
-					</li>
-					<li>
-						Check backend logs for errors: <code>./backend_server --debug</code>
-					</li>
-					<br />
-				</ul>
-
-				<h2>Conclusion</h2>
-				<p>Your system statistics and user management application should now be up and running!</p>
 			</section>
 		</>
 	);
