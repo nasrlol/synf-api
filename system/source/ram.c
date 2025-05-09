@@ -38,8 +38,8 @@ long getMemoryUsage(void);
 long getMemoryUsage(void) 
 {
 
-  struct rusage usage;
-  if(0 == getrusage(RUSAGE_SELF, &usage))
+  struct ramusage usage;
+  if(0 == getRamUsage(RAM_USAGE_SELF, &usage))
     return usage.ru_maxrss; // returns the value in bytes
                             // convert it to gigabytes in the front end :) 
   else
