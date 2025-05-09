@@ -9,7 +9,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-// retrieving the inputed user information from the front-end
+// retrieving the user information from the front-end
 // to compare it to the database
 func GetUser(userName string) (reg.UserInformation, error) {
 	var userInfo reg.UserInformation
