@@ -22,12 +22,10 @@
 #include <stdio.h>
 #include <sys/sysctl.h>
 #include <sys/types.h>
-#include <math.h>
-
 
 typedef struct {
-  char* memName;
-  int memSize;
+  unsigned long mem_size;
+  unsigned long av_mem_size;
 } ram;
 
 long getTotalMem(void);
@@ -75,15 +73,12 @@ int main()
 
 
 typedef struct {
-  char* mem_name;
-  long mem_size;
-  long av_mem_size;
-  double mem_freq;
+  unsigned long mem_size;
+  unsigned long av_mem_size;
 } ram;
 
 unsigned long tot_mem_size(void);
 unsigned long av_mem_size(void);
-float mem_freq(void);
 
 int main(int argc, char** argv)
 {
