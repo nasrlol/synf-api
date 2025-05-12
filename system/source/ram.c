@@ -22,10 +22,13 @@
 #include <stdio.h>
 #include <sys/sysctl.h>
 #include <sys/types.h>
+#include <math.h>
+
+#define CONVERT_BYTES_TO_GIGABYTES 107374182   
 
 typedef struct {
-  unsigned long mem_size;
-  unsigned long av_mem_size;
+  char* memName;
+  int memSize;
 } ram;
 
 long getTotalMem(void);
@@ -36,10 +39,9 @@ long getMemoryUsage(void);
 long getMemoryUsage(void) 
 {
 
-  struct ramusage usage;
-  if(0 == getRamUsage(RAM_USAGE_SELF, &usage))
-    return usage.ru_maxrss; // returns the value in bytes
-                            // convert it to gigabytes in the front end :) 
+  struct rusage usage;
+  if(0 == getrusage(RUSAGE_SELF, &usage))
+    return usage.ru_maxrss / CONVERT_BYTES_TO_GIGABYTES ; 
   else
     return 0;
 }
@@ -66,48 +68,9 @@ int main()
 
 #ifdef __gnu_linux__
 
-#include <stdio.h> 
-#include <string.h>
-#include <stdlib.h>
-#include <sys/sysinfo.h>
-
-
-typedef struct {
-  unsigned long mem_size;
-  unsigned long av_mem_size;
-} ram;
-
-unsigned long tot_mem_size(void);
-unsigned long av_mem_size(void);
-
-int main(int argc, char** argv)
+int main()
 {
-  if (argc < 1)
-  {
-    if (strcmp(*argv, "size")) {
-      printf("%lu", tot_mem_size());
-    } else if (strcmp(*argv, "available"))
-    {
-      printf("%lu", av_mem_size());
-    } else if (strcmp(*argv, "frequency")){
-      printf("%f", mem_freq());
-    }
-  }
+
   return 0;
 }
-
-unsigned long tot_mem_size(void) 
-{
-  struct sysinfo info;
-
-  return info.totalram;
-}
-
-unsigned long av_mem_size(void)
-{
-  struct sysinfo info;
-
-  return info.freeram;
-}
-
 #endif
