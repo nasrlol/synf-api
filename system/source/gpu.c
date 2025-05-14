@@ -17,18 +17,21 @@
  */
 
 #include <stdlib.h>
+#include <stdio.h>
+
 #define MAXC 1024
 
 void gpu_name(void);
 void gpu_temperature(unsigned short delay);
 void gpu_frequency(void);
 
-int main()
+int main(int argc, char** argv)
 {
     printf("retrieving GPU data");
-
     return 0;
 }
+
+void gpu_temperature(unsigned short delay);
 
 void gpu_name(void)
 {
