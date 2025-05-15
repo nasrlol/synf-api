@@ -24,6 +24,7 @@
 #include <sys/types.h>
 #include <math.h>
 
+#define CONVERT_BYTES_TO_GIGABYTES 107374182   
 
 typedef struct {
   char* memName;
@@ -40,8 +41,7 @@ long getMemoryUsage(void)
 
   struct rusage usage;
   if(0 == getrusage(RUSAGE_SELF, &usage))
-    return usage.ru_maxrss; // returns the value in bytes
-                            // convert it to gigabytes in the front end :) 
+    return usage.ru_maxrss / CONVERT_BYTES_TO_GIGABYTES ; 
   else
     return 0;
 }
@@ -68,6 +68,7 @@ int main()
 
 #ifdef __gnu_linux__
 
+<<<<<<< HEAD
 #include <stdio.h> 
 #include <string.h>
 #include <stdlib.h>
@@ -85,33 +86,11 @@ unsigned long av_mem_size(void);
 float mem_freq(void);
 
 int main(int argc, char** argv)
+=======
+int main()
+>>>>>>> refs/remotes/origin/main
 {
-  if (argc < 1)
-  {
-    if (strcmp(*argv, "size")) {
-      printf("%lu", tot_mem_size());
-    } else if (strcmp(*argv, "available"))
-    {
-      printf("%lu", av_mem_size());
-    } else if (strcmp(*argv, "frequency")){
-      printf("%f", mem_freq());
-    }
-  }
+
   return 0;
 }
-
-unsigned long tot_mem_size(void) 
-{
-  struct sysinfo info;
-
-  return info.totalram;
-}
-
-unsigned long av_mem_size(void)
-{
-  struct sysinfo info;
-
-  return info.freeram;
-}
-
 #endif

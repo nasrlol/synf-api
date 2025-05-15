@@ -19,6 +19,17 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+void disk_size();
+char* disk_partitions();
+
+typedef struct {
+
+    int partition_count;
+    char* partition_names;
+    char
+} disk;
+
+
 int main()
 {
     return 0;
