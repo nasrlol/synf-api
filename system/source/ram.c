@@ -73,7 +73,6 @@ int main()
 #include <stdlib.h>
 #include <sys/sysinfo.h>
 
-
 typedef struct {
   char* mem_name;
   long mem_size;
