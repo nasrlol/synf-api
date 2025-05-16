@@ -27,16 +27,14 @@
 #define CONVERT_BYTES_TO_GIGABYTES 107374182   
 
 typedef struct {
-  char* memName;
-  int memSize;
+  unsigned long mem_size;
 } ram;
 
-long getTotalMem(void);
-int getMemFreq(void);
-long getMemoryUsage(void);
+unsigned long get_total(void);
+unsigned long get_usage(void);
 
 
-long getMemoryUsage(void) 
+unsigned long get_usage(void) 
 {
 
   struct rusage usage;
@@ -46,15 +44,22 @@ long getMemoryUsage(void)
     return 0;
 }
 
-long getTotalMem(void){
+unsigned long get_mem(void){
 
-  int i, mib[4];
-  size_t len;
+  int mib[2];
+  size_t size;
+  uint64_t ram_size;
 
-  len = 4;
+  mib[0] = CTL_HW;
+  mib[1] = HW_MEMSIZE;
 
+  size = sizeof(ram_size);
+  if (sysctl(mib, 2, &ram_size, &size, NULL, 0) == -1) {
+    perror("sysctl");
+  }
 
-  return 0;
+  return ram_size;
+
 }
 
 int main()
@@ -68,29 +73,34 @@ int main()
 
 #ifdef __gnu_linux__
 
-<<<<<<< HEAD
-#include <stdio.h> 
-#include <string.h>
+#include <stdio.h>
 #include <stdlib.h>
-#include <sys/sysinfo.h>
 
-typedef struct {
-  char* mem_name;
-  long mem_size;
-  long av_mem_size;
-  double mem_freq;
+typedef struct 
+{
+  unsigned long mem_size;
 } ram;
 
-unsigned long tot_mem_size(void);
-unsigned long av_mem_size(void);
-float mem_freq(void);
+unsigned long get_total(void);
+unsigned long get_usage(void);
 
-int main(int argc, char** argv)
-=======
+
 int main()
->>>>>>> refs/remotes/origin/main
 {
 
   return 0;
 }
+
+unsigned long get_total(void)
+{
+
+}
+
+unsigned long get_usage(void) 
+{
+
+}
+
+
+
 #endif

@@ -24,9 +24,14 @@ char* disk_partitions();
 
 typedef struct {
 
-    int partition_count;
-    char* partition_names;
-    char
+    char* partition_name;
+    unsigned long parition_size;
+
+} partition;
+
+typedef struct {
+    partition* paritions;
+    long total_disk_size; 
 } disk;
 
 
