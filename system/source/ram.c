@@ -64,7 +64,7 @@ unsigned long get_mem(void){
 
 int main()
 {
-  printf("%lu", getMemoryUsage());
+  printf("%lu", get_mem());
   return 0;
 }
 
@@ -104,3 +104,4 @@ unsigned long get_usage(void)
 
 
 #endif
+
