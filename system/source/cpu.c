@@ -95,7 +95,6 @@ char* cpu_frequency(void);
 int main(int argc, char **argv)
 {
     printf("compiled for __gnu_linux__");
-    printf("tested on arch linux");
     if (argc > 1)
     {
         if (strcmp(argv[1], "frequency") == 0)
