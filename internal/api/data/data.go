@@ -19,18 +19,11 @@ type CpuInformation struct {
 	CpuFreq uint8  `json:"cpu_freq"`
 }
 
-type GpuInformation struct {
-	GpuID   uint8  `json:"cpu_id"`
-	GpuName string `json:"cpu_name"`
-	GpuTemp uint8  `json:"cpu_temp"`
-	GpuFreq uint8  `json:"cpu_freq"`
-}
-
 type RamInformation struct {
-	RamID   uint8  `json:"cpu_id"`
-	RamName string `json:"cpu_name"`
-	RamTemp uint8  `json:"cpu_temp"`
-	RamFreq uint8  `json:"cpu_freq"`
+	RamID   uint8  `json:"ram_id"`
+	RamName string `json:"ram_name"`
+	RamTemp uint8  `json:"ram_temp"`
+	RamFreq uint8  `json:"ram_freq"`
 }
 
 type DiskInformation struct {
@@ -58,7 +51,6 @@ func DeviceUpTime() <-chan string {
 	go func() {
 		defer close(outchan)
 		for scanner.Scan() {
-
 			outchan <- scanner.Text()
 		}
 
