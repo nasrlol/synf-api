@@ -74,7 +74,6 @@ func ConnectDB() (*sql.DB, error) {
 
 // Stats returns the database statistics
 func Stats(db *sql.DB) sql.DBStats {
-
 	return db.Stats()
 }
 

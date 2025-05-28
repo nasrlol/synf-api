@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+
 	db "synf/internal/database"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -45,7 +46,6 @@ func insertUser(data UserInformation) error {
 		defer func(conn *sql.DB) {
 			err := conn.Close()
 			if err != nil {
-
 			}
 		}(conn)
 	} else {
@@ -91,7 +91,6 @@ func UserReg(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 }
 
 func selectUser(data UserInformation) UserInformation {
-
 	db, err := db.ConnectDB()
 	if err != nil {
 		return UserInformation{}
@@ -105,12 +104,10 @@ func selectUser(data UserInformation) UserInformation {
 		return UserInformation{}
 	} else {
 		return UserInformation{}
-
 	}
 }
 
 func GetUser(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-
 	var data UserInformation
 	data = selectUser(data)
 

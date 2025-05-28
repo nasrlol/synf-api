@@ -41,6 +41,10 @@ func wsHandlerCPU(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func restHandlerGPU(w http.ResponseWriter, r* http.Request){
+
+}
+
 func InitCPU() {
 	fmt.Println("initalizing the websocket and serving the cpu handler")
 	server := &http.Server{
