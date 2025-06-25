@@ -24,6 +24,9 @@ func upRam(ctx context.Context, tx *sql.Tx) error {
 }
 
 func downRam(ctx context.Context, tx *sql.Tx) error {
-	// This code is executed when the migration is rolled back.
+	_, err := tx.Exec(`DROP TABLE IF EXISTS rams`)
+	if err != nil {
+		return err
+	}
 	return nil
 }
