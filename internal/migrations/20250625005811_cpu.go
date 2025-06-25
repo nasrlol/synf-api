@@ -12,10 +12,10 @@ func init() {
 
 func upCpu(ctx context.Context, tx *sql.Tx) error {
 	_, err := tx.Exec(`CREATE TABLE cpus (
-											id PRIMARY KEY AUTO_INCREMENT,
+											id INTEGER PRIMARY KEY AUTO_INCREMENT,
 											name VARCHAR(255) NOT NULL,
 											freq INTEGER NOT NULL,
-											temp INTEGER NOT NULL,
+											temp INTEGER NOT NULL
 										)`)
 
 	if err != nil {
