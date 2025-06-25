@@ -13,8 +13,8 @@ func init() {
 func upRam(ctx context.Context, tx *sql.Tx) error {
 	_, err := tx.Exec(`CREATE TABLE rams (
 											id INTEGER PRIMARY KEY AUTO_INCREMENT,
-											size INTEGER NOT NULL,
-											speed INTEGER
+											size INTEGER NOT NULL DEFAULT 0,
+											speed INTEGER NOT NULL DEFAULT 0
 											)`)
 
 	if err != nil {
