@@ -12,7 +12,7 @@ func init() {
 }
 
 func upDevice(ctx context.Context, tx *sql.Tx) error {
-	_, err := tx.Exec(`CREATE TABLE devices (
+	_, err := tx.Exec(`CREATE TABLE IF NOT EXISTS devices (
 											id INTEGER PRIMARY KEY AUTO_INCREMENT,
 											name VARCHAR(255) NOT NULL,
 											status TINYINT(1) DEFAULT 0,
