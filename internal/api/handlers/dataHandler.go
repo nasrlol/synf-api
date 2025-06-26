@@ -1,11 +1,10 @@
-package ws
+package Handlers 
 
 import (
 	"fmt"
 	"log"
 	"net/http"
 	"synf/internal/api/data"
-	"time"
 
 	"github.com/gorilla/websocket"
 )
@@ -29,7 +28,6 @@ func wsHandlerCPU(w http.ResponseWriter, r *http.Request) {
 	defer func(conn *websocket.Conn) {
 		err := conn.Close()
 		if err != nil {
-
 		}
 	}(conn)
 
@@ -41,9 +39,7 @@ func wsHandlerCPU(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func restHandlerGPU(w http.ResponseWriter, r* http.Request){
-
-}
+func restHandlerGPU(w http.ResponseWriter, r *http.Request) {}
 
 func InitCPU() {
 	fmt.Println("initalizing the websocket and serving the cpu handler")

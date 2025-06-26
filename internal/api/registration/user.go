@@ -22,11 +22,12 @@ func boolToInt(value bool) int {
 
 type UserInformation struct {
 	UserID            uint8  `json:"id"`
-	UserName          string `json:"user_name"`
-	UserRole          bool   `json:"user_role"`
-	UserEmail         string `json:"user_email"`
-	UserEmailVerified bool   `json:"is_email_verified"`
-	UserPassword      string `json:"user_password"`
+	UserName          string `json:"name"`
+	UserEmail         string `json:"email"`
+	UserPassword      string `json:"password"`
+	UserRole          bool   `json:"role"`
+	UserEmailVerified bool   `json:"verified"`
+	UserIsLogging     bool   `json:"is_logging"`
 }
 
 type LOGIN struct {

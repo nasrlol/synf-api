@@ -5,24 +5,23 @@ import (
 )
 
 func init() {
-	http.HandleFunc("/cpu", CpuHandler)
-	http.HandleFunc("/ram", RamHandler)
-	http.HandleFunc("/disk", DiskHandler)
-	http.HandleFunc("/gendev", GenDevHandler)
+	http.HandleFunc("/api/data/cpu", CpuHandler)
+	http.HandleFunc("/api/data/cpu", RamHandler)
+	http.HandleFunc("/api/data/disk", DiskHandler)
+	http.HandleFunc("/api/data/ram", DeviceHandler)
+	http.HandleFunc("/api/about", AboutHandler)
 }
 
 func CpuHandler(w http.ResponseWriter, r *http.Request) {
-
 }
 
 func RamHandler(w http.ResponseWriter, r *http.Request) {
-
 }
 
 func DiskHandler(w http.ResponseWriter, r *http.Request) {
-
 }
 
-func GenDevHandler(w http.ResponseWriter, r *http.Request) {
-
+func DeviceHandler(w http.ResponseWriter, r *http.Request) {
 }
+
+func AboutHandler(w http.ResponseWriter, r *http.Request) {}
