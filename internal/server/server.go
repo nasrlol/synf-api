@@ -5,7 +5,6 @@ import (
 	"log"
 	"net"
 	"net/http"
-	"synf/internal/api/registration"
 	"time"
 
 	"github.com/julienschmidt/httprouter"
@@ -21,20 +20,6 @@ func RegistrationEndpoint() {
 	router.POST("/user/registration", registration.UserReg)
 
 	log.Fatal(http.ListenAndServe(":8080", router))
-}
-
-func GetOutboundIp() net.IP {
-	conn, err := net.Dial("udp", "8.8.8.8:80")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer func(conn net.Conn) {
-		_ = conn.Close()
-	}(conn)
-
-	localAddr := conn.LocalAddr().(*net.UDPAddr)
-
-	return localAddr.IP
 }
 
 func RawConnect(host string, port string) {
