@@ -3,14 +3,12 @@ package auth
 import (
 	"fmt"
 
-	reg "synf/internal/api/registration"
+	reg "synf/internal/api/data/rest"
 	db "synf/internal/database"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
-// retrieving the user information from the front-end
-// to compare it to the database
 func GetUser(userName string) (reg.UserInformation, error) {
 	var userInfo reg.UserInformation
 	query := "SELECT user.id FROM user WHERE name LIKE ?"
