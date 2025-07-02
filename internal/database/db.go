@@ -11,15 +11,6 @@ import (
 	"github.com/joho/godotenv"
 )
 
-type UserInformation struct {
-	UserID            uint8  `json:"id"`
-	UserName          string `json:"user_name"`
-	UserRole          bool   `json:"user_role"`
-	UserEmail         string `json:"user_email"`
-	UserEmailVerified bool   `json:"is_email_verified"`
-	UserPassword      string `json:"user_password"`
-}
-
 type LOGIN struct {
 	User string
 	Pass string
