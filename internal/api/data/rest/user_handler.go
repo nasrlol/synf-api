@@ -7,37 +7,67 @@ import (
 	"net/http"
 	"synf/internal/api/data/models"
 
-	db "synf/internal/database"
+	"synf/internal/database"
 
 	_ "github.com/go-sql-driver/mysql"
 	"golang.org/x/crypto/bcrypt"
 )
 
-func insertUser(data models.UserInformation) (bool, error) {
-	conn, err := db.ConnectDB()
+func GetUser(w http.ResponseWriter, r *http.Request) {
+
+	w.Header().Set("Content-type", "application/json")
+
+	var request struct {
+		"Email" string `json:"email"`
+		"Password" string `json:"password"`
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+
+	conn, err := database.Connect()
 	if err != nil {
-		return false, fmt.Errorf("failed to connect to the database")
+		w.WriteHeader(404)
+	}
+	query := `SELECT EXISTS (
+					SELECT 1
+					FROM USER
+					WHERE name LIKE ?
+					AND
+					email LIKE ?
+					AND
+					password LIKE ?)`
+
+	conn.Exec(query, request.Username, request)
+
+	err := json.NewEncoder(w).Encode(data)
+	if err != nil {
+		return
+	}
+}
+
+func CreateUser(w http.ResponseWriter, r *http.Request) {
+
+	conn, err := database.Connect()
+	if err != nil {
+		w.WriteHeader(500)
 	}
 	if conn != nil {
 		defer func(conn *sql.DB) {
 			err := conn.Close()
 			if err != nil {
+				w.WriteHeader(500)
 			}
 		}(conn)
 	} else {
-		return false, fmt.Errorf("db is nil")
+		w.WriteHeader(500)
 	}
 
-	query := `INSERT INTO USER (name, password, user_role, email) VALUES (?, ?, ?, ?)`
-	fmt.Println("inserting the information into the database")
+	query := `INSERT INTO users (name, password, email, role) VALUES (?, ?, ?, ?)`
+	r.GetBody(models.UserInformation{UserName: })
 	_, err = conn.Exec(query, data.UserName, data.UserPassword, data.UserRole, data.UserEmail)
 	if err != nil {
-		return false, fmt.Errorf("failed to execute the query")
+		w.WriteHeader(500)
 	}
-	return true, nil
-}
-
-func CreateUser(w http.ResponseWriter, r *http.Request) {
 	var user models.UserInformation
 
 	err := json.NewDecoder(r.Body).Decode(&user)
@@ -65,35 +95,4 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(map[string]interface{}{
 		"message": "User registered successfully",
 	})
-}
-
-func GetUser(w http.ResponseWriter, r *http.Request) {
-
-	request := r.Body(models.UserInformation{
-		UserName:  "",
-		UserEmail: "",
-		UserRole:  "",
-	})
-
-	w.Header().Set("Content-Type", "application/json")
-
-	conn, err := db.ConnectDB()
-	if err != nil {
-		w.WriteHeader(404)
-	}
-	query := `SELECT EXISTS (
-					SELECT 1
-					FROM USER
-					WHERE name LIKE ?
-					AND
-					email LIKE ?
-					AND
-					password LIKE ?)`
-
-	conn.Exec(query, request.Username, request)
-
-	err := json.NewEncoder(w).Encode(data)
-	if err != nil {
-		return
-	}
 }

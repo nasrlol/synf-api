@@ -2,7 +2,6 @@ package server
 
 import (
 	"fmt"
-	"log"
 	"net"
 	"net/http"
 	"time"
@@ -12,14 +11,6 @@ import (
 
 func UserLog(w http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
 	w.Write([]byte("endpoint is running, user login endpoint"))
-}
-
-func RegistrationEndpoint() {
-	router := httprouter.New()
-	router.GET("/user/login", registration.GetUser)
-	router.POST("/user/registration", registration.UserReg)
-
-	log.Fatal(http.ListenAndServe(":8080", router))
 }
 
 func RawConnect(host string, port string) {

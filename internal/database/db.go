@@ -34,7 +34,7 @@ func loadCredentials() LOGIN {
 	}
 }
 
-func ConnectDB() (*sql.DB, error) {
+func Connect() (*sql.DB, error) {
 	credentials := loadCredentials()
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", credentials.User, credentials.Pass, credentials.Ip, credentials.Port, credentials.Name)
 
@@ -63,11 +63,6 @@ func ConnectDB() (*sql.DB, error) {
 	return db, nil
 }
 
-// Stats returns the database statistics
-func Stats(db *sql.DB) sql.DBStats {
-	return db.Stats()
-}
-
-func CloseDb(db *sql.DB) {
+func Close(db *sql.DB) {
 	db.Close()
 }
