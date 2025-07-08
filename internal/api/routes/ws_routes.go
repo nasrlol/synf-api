@@ -4,13 +4,10 @@ import (
 	"log"
 	"net/http"
 	"time"
-
-	"synf/internal/api/data/ws/"
 )
 
 func InitWsRoutes() {
-	http.HandleFunc("cpu/temperature", MakeWsHandler(data.CpuTemperature()))
-	http.HandleFunc("cpu/frequency", MakeWsHandler(data.CpuFrequency()))
+	// http.HandleFunc("cpu", ws.MakeWsHandler(services.Cpu()))
 
 	server := &http.Server{
 		Addr:           ":8085",
