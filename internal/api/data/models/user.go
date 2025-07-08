@@ -1,10 +1,10 @@
 package models
 
 type UserInformation struct {
-	UserID       uint8  `json:"id"`
-	UserName     string `json:"name"`
-	UserEmail    string `json:"email"`
-	UserPassword string `json:"password"`
-	UserRole     string `json:"role"`
-	UserVerified bool   `json:"verified"`
+	Id       uint8  `json:"id"`
+	Name     string `json:"name"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
+	Role     string `json:"role"`
+	Verified bool   `json:"verified"`
 }
