@@ -3,39 +3,13 @@ package database
 import (
 	"database/sql"
 	"fmt"
-	"log"
-	"os"
 	"time"
 
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/joho/godotenv"
+	"synf/internal/config"
 )
 
-type LOGIN struct {
-	User string
-	Pass string
-	Ip   string
-	Port string
-	Name string
-}
-
-func loadCredentials() LOGIN {
-	err := godotenv.Load("../secret.env")
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-
-	return LOGIN{
-		User: os.Getenv("DATABASE_USER"),
-		Pass: os.Getenv("DATABASE_PASSWORD"),
-		Ip:   os.Getenv("DATABASE_IP"),
-		Port: os.Getenv("DATABASE_PORT"),
-		Name: os.Getenv("DATABASE_NAME"),
-	}
-}
-
 func Connect() (*sql.DB, error) {
-	credentials := loadCredentials()
+	credentials := config.LoadCredetials()
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", credentials.User, credentials.Pass, credentials.Ip, credentials.Port, credentials.Name)
 
 	fmt.Println(credentials.Ip, credentials.User, credentials.Ip, credentials.Port, credentials.Name)
