@@ -1,7 +1,7 @@
 package models
 
-type RamInformation struct {
-	RamID   int `json:"id"`
-	RamTemp int `json:"size"`
-	RamFreq int `json:"speed"`
+type Ram struct {
+	Id   int `json:"id"`
+	Temp int `json:"size"`
+	Freq int `json:"speed"`
 }

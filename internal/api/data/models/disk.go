@@ -1,7 +1,7 @@
 package models
 
-type DiskInformation struct {
-	DiskID    int    `json:"id"`
-	DiskName  string `json:"name"`
-	DiskSpeed int    `json:"size"`
+type Disk struct {
+	Id    int    `json:"id"`
+	Name  string `json:"name"`
+	Speed int    `json:"size"`
 }

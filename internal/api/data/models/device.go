@@ -1,6 +1,6 @@
 package models
 
-type DeviceInformation struct {
-	DeviceID   int    `json:"id"`
-	DeviceName string `json:"name"`
+type Device struct {
+	Id   int    `json:"id"`
+	Name string `json:"name"`
 }
