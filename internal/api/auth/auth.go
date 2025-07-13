@@ -3,13 +3,14 @@ package auth
 import (
 	"database/sql"
 	"errors"
-	"github.com/google/uuid"
+
 	"synf/internal/api/data/models"
 	"synf/internal/database"
+
+	"github.com/google/uuid"
 )
 
 func CreateSession(role string) (string, error) {
-
 	token := uuid.NewString()
 	query := `INSERT INTO sessions (token) VALUE ? `
 
@@ -26,8 +27,7 @@ func CreateSession(role string) (string, error) {
 	return token, nil
 }
 
-func ValidateCredentials(user models.UserInformation) (bool, error) {
-
+func ValidateCredentials(user models.User) (bool, error) {
 	conn, err := database.Connect()
 	if err != nil {
 		return false, err
