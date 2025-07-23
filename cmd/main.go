@@ -4,7 +4,9 @@ import (
 	"database/sql"
 	"embed"
 	"fmt"
+	"net"
 	"os"
+	"time"
 
 	"github.com/pressly/goose/v3"
 )
@@ -36,6 +38,20 @@ func resetMigrations() {
 
 	if err := goose.Down(db, "migrations"); err != nil {
 		panic(err)
+	}
+}
+
+func RawConnect(host string, port string) {
+	timeout := time.Second
+	conn, err := net.DialTimeout("tcp", net.JoinHostPort(host, port), timeout)
+	if err != nil {
+		fmt.Println("Connecting error:", err)
+	}
+	if conn != nil {
+		defer func(conn net.Conn) {
+			_ = conn.Close()
+		}(conn)
+		fmt.Println("Opened", net.JoinHostPort(host, port))
 	}
 }
 
