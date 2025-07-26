@@ -4,7 +4,9 @@ import (
 	"database/sql"
 	"embed"
 	"fmt"
+	"log"
 	"net"
+	"net/http"
 	"os"
 	"time"
 
@@ -72,10 +74,9 @@ func main() {
 		case "reset-migrate":
 			resetMigrations()
 		case "start":
-			for {
-				h.InitRestRoutes()
-				fmt.Println("running")
-			}
+
+			r := h.InitRestRoutes()
+			log.Fatal(http.ListenAndServe(":8080", r))
 		}
 	}
 }
