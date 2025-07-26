@@ -17,6 +17,12 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+/*
+	body, _ := io.ReadAll(r.Body)
+	fmt.Println("RAW BODY RECEIVED:", string(body))
+	r.Body = io.NopCloser(bytes.NewReader(body)) // reset for decode
+*/
+
 func GetUser(w http.ResponseWriter, r *http.Request) {
 	var request struct {
 		Email    string `json:"email"`
@@ -25,7 +31,7 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 
 	err := json.NewDecoder(r.Body).Decode(&request)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
@@ -37,11 +43,9 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	defer database.Close(conn)
-
 	var user models.User
 
-	err = conn.QueryRow(query, request.Email).Scan(&user.Id, &user.Name, &user.Email, &user.Password, &user.Role, &user.Verified)
+	_ = conn.QueryRow(query, request.Email).Scan(&user.Id, &user.Name, &user.Email, &user.Password, &user.Role, &user.Verified)
 
 	switch {
 	case err == sql.ErrNoRows:
@@ -63,6 +67,8 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusAccepted)
 	json.NewEncoder(w).Encode(user)
+
+	database.Close(conn)
 }
 
 func CreateUser(w http.ResponseWriter, r *http.Request) {
