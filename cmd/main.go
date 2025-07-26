@@ -9,6 +9,8 @@ import (
 	"time"
 
 	"github.com/pressly/goose/v3"
+
+	h "synf/internal/api/routes"
 )
 
 var embedMigrations embed.FS
@@ -69,6 +71,11 @@ func main() {
 			resetMigrations()
 		case "reset-migrate":
 			resetMigrations()
+		case "start":
+			for {
+				h.InitRestRoutes()
+				fmt.Println("running")
+			}
 		}
 	}
 }
