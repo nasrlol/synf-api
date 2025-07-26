@@ -145,23 +145,10 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for key, value := range entries {
-		_, err = query.WriteString(key)
-		if err != nil {
-			return
-		}
-		_, err = query.WriteString("=")
-		if err != nil {
-			return
-		}
-
-		_, err = query.WriteString(value)
-		if err != nil {
-			return
-		}
-		_, err = query.WriteString(",")
-		if err != nil {
-			return
-		}
+		_, _ = query.WriteString(key)
+		_, _ = query.WriteString("=")
+		_, _ = query.WriteString(value)
+		_, _ = query.WriteString(",")
 	}
 
 	query.WriteString(`WHERE id = ?`)

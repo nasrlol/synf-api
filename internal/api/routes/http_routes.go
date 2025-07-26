@@ -30,6 +30,8 @@ func InitRestRoutes() {
 
 	r.HandleFunc("/user/login", h.GetUser).Methods("POST")
 	r.HandleFunc("/user/registration", h.CreateUser).Methods("POST")
+	r.HandleFunc("/user/{id}", h.UpdateUser).Methods("POST")
+	r.HandleFunc("/user/{id}", h.DeleteUser).Methods("POST")
 
 	http.Handle("/", r)
 }
