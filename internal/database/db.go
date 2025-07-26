@@ -3,7 +3,6 @@ package database
 import (
 	"database/sql"
 	"fmt"
-	"time"
 
 	"synf/internal/config"
 )
@@ -19,21 +18,7 @@ func Connect() (*sql.DB, error) {
 		return nil, fmt.Errorf("failed to connect to the database")
 	}
 
-	// Check connection
-	if err = db.Ping(); err != nil {
-		fmt.Println("failed to ping the server")
-		err := db.Close()
-		if err != nil {
-			return nil, err
-		}
-		return nil, err
-	}
-
-	db.SetConnMaxIdleTime(time.Minute * 3)
-	db.SetMaxOpenConns(10)
-	db.SetMaxIdleConns(10)
-
-	fmt.Println("Connected to MySQL")
+	fmt.Println("Connected to database")
 	return db, nil
 }
 
