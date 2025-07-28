@@ -35,7 +35,7 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	query := `SELECT * FROM USER WHERE email = ?`
+	query := `SELECT * FROM users WHERE email = ?`
 
 	conn, err := database.Connect()
 	if err != nil {
@@ -45,14 +45,13 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 
 	var user models.User
 
-	_ = conn.QueryRow(query, request.Email).Scan(&user.Id, &user.Name, &user.Email, &user.Password, &user.Role, &user.Verified)
+	err = conn.QueryRow(query, request.Email).Scan(&user.Id, &user.Name, &user.Email, &user.Password, &user.Role, &user.Verified)
 
 	switch {
 	case err == sql.ErrNoRows:
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	case err != nil:
-
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
@@ -76,6 +75,8 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		Name     string `json:"name"`
 		Email    string `json:"email"`
 		Password string `json:"password"`
+		Role     string `json:"role"`
+		Verfied  int    `jons:"verified"`
 	}
 
 	err := json.NewDecoder(r.Body).Decode(&request)
@@ -86,7 +87,8 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(request.Password), bcrypt.DefaultCost)
 	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
+
+		http.Error(w, "Failed hashing the password", http.StatusInternalServerError)
 		return
 	}
 
@@ -98,16 +100,18 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	defer database.Close(conn)
 
-	query := `INSERT INTO users (name, email, password) VALUES (?, ?, ?)`
+	query := `INSERT INTO users (name, email, password, role, verified) VALUES (?, ?, ?, ?, ?)`
 
-	_, err = conn.Exec(query, request.Name, request.Email, hashedPassword)
+	_, err = conn.Exec(query, request.Name, request.Email, hashedPassword, request.Role, request.Verfied)
 	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
+
+		fmt.Println("failed here")
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
+
 	}
 
 	w.WriteHeader(http.StatusOK)
-	database.Close(conn)
 }
 
 func UpdateUser(w http.ResponseWriter, r *http.Request) {
