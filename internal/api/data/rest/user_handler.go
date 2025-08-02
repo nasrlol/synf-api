@@ -187,5 +187,10 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer database.Close(conn)
-	conn.Exec(query, id)
+	_, err = conn.Exec(query, id)
+	if err != nil {
+		http.Error(w, "Unable to execute the query", http.StatusBadRequest)
+	}
+
+	w.WriteHeader(http.StatusOK)
 }

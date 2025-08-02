@@ -4,8 +4,9 @@ import (
 	"log"
 	"net/http"
 
+	"synf/internal/api/data/services"
+
 	"github.com/gorilla/websocket"
-	ser "synf/internal/api/data/services"
 )
 
 var upgrader = websocket.Upgrader{
@@ -13,7 +14,7 @@ var upgrader = websocket.Upgrader{
 	WriteBufferSize:   1024,
 	EnableCompression: true,
 	CheckOrigin: func(r *http.Request) bool {
-		return r.Host == "api.nsrddyn.com"
+		return true
 	},
 }
 
@@ -30,7 +31,7 @@ func MakeWsHandler(<-chan string) http.HandlerFunc {
 			}
 		}()
 
-		for dt, _ := range ser.Cpu("./cpu", "temperature") {
+		for dt := range services.Cpu("./cpu", "temperature") {
 			if err := conn.WriteMessage(websocket.TextMessage, []byte(dt)); err != nil {
 				log.Printf("Error writing message over WebSocket: %v\n", err)
 				break

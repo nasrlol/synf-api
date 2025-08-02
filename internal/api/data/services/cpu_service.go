@@ -6,7 +6,7 @@ import (
 	"os/exec"
 )
 
-func Cpu(path string, parameter string) (<-chan string, string) {
+func Cpu(path string, parameter string) <-chan string {
 	outChan := make(chan string)
 
 	if parameter != "name" {
