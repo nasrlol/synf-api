@@ -150,7 +150,6 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 		if field.IsValid() && !field.IsZero() {
 			valueStr := fmt.Sprintf("%v", field.Interface())
 			entries[valueStr] = typ.Field(i).Name
-
 		}
 	}
 
@@ -180,7 +179,7 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	query := `DELETE FROM users WHERE ?;`
+	query := `DELETE FROM users WHERE id = ?;`
 	conn, err := database.Connect()
 	if err != nil {
 		http.Error(w, "Unable to connect to the database", http.StatusInternalServerError)
