@@ -105,7 +105,6 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	_, err = conn.Exec(query, request.Name, request.Email, hashedPassword, request.Role, request.Verfied)
 	if err != nil {
 
-		fmt.Println("failed here")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 

@@ -51,7 +51,7 @@ func CreateDisk(w http.ResponseWriter, r *http.Request) {
 	var request struct {
 		Name  string `json:"name"`
 		Size  int    `json:"size"`
-		Token string `json:token`
+		Token string `json:"token"`
 	}
 
 	err := json.NewDecoder(r.Body).Decode(&request)
