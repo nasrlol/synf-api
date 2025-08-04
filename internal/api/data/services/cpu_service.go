@@ -32,6 +32,6 @@ func Cpu(path string, parameter string) <-chan string {
 				log.Printf("scanner error %v\n", err)
 			}
 		}()
-		return outChan, parameter
 	}
+	return outChan
 }
