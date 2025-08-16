@@ -141,7 +141,7 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 
 	var query strings.Builder
 
-	base := `UPDATE users SET `
+	base := `UPDATE users SET ? = ? WHERE id = ?`
 	query.WriteString(base)
 
 	for i := range data.NumField() {
