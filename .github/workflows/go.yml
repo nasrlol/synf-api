@@ -28,7 +28,7 @@ jobs:
       run: go mod tidy
 
     - name: Build
-      run: go build -v ./cmd
+      run: go build -v -o synf-api ./cmd/main.go
 
     - name: Test
       run: go test -v ./internal/tests
