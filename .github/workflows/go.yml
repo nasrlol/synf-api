@@ -27,6 +27,9 @@ jobs:
     - name: Tidy
       run: go mod tidy
 
+    - name: Bugfix
+      run: go get github.com/go-sql-driver/mysql@latest
+      
     - name: Build
       run: go build -v -o synf-api ./cmd/main.go
 
