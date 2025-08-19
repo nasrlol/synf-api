@@ -15,6 +15,6 @@ func TestCreateUser(t *testing.T) {
 	rr := httptest.NewRecorder()
 
 	if status := rr.Code; status != http.StatusOK {
-		t.Errorf("expected status %d, got %d", http.StatusOstatus)
+		t.Errorf("expected status %d, got %d", http.StatusOK)
 	}
 }
