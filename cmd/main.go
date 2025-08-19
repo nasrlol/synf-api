@@ -77,9 +77,10 @@ func main() {
 
 			fmt.Println("\033[H\033[2J")
 			r := h.InitRestRoutes()
-			w := h.InitWsRoutes()
 			log.Fatal(http.ListenAndServe(":8080", r))
-			log.Fatal(http.ListenAndServe(":8090", w))
+
+			// w := h.InitWsRoutes()
+			// log.Fatal(http.ListenAndServe(":8090", w))
 		}
 	}
 }
