@@ -20,6 +20,18 @@ func CreateEnvFile() error {
 	if err != nil {
 		return err
 	}
+
+	err = godotenv.Load(".env")
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	os.Setenv("DATABASE_USER", "nasr")
+	os.Setenv("DATABASE_PASSWORD", "root")
+	os.Setenv("DATABASE_IP", "127.0.0.1")
+	os.Setenv("DATABASE_PORT", "3306")
+	os.Setenv("DATABASE_NAME", "synf")
+
 	return nil
 }
 
