@@ -21,34 +21,11 @@ jobs:
       with:
         go-version: '1.21'
 
-    - name: Init
-      run: go mod init synf
-
     - name: Tidy
       run: go mod tidy
 
-    - name: Bugfix
-      run: go get github.com/go-sql-driver/mysql@latest
-      
     - name: Build
       run: go build -v -o synf-api ./cmd/main.go
 
     - name: Test
       run: go test -v ./internal/tests
-
-  release:
-    environment:
-      name: production
-      url: https://github.com/${{ github.repository }}/releases/tag/${{ steps.semantic-release.outputs.release-tag }}
-    name: semantic release
-    needs:
-      - build
-    runs-on: ubuntu-latest
-    steps:
-      - name: "checkout repository"
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name:
-
-
