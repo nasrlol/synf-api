@@ -15,7 +15,15 @@ type Login struct {
 	Name string
 }
 
-func LoadCredetials() Login {
+func CreateEnvFile() error {
+	err := os.WriteFile(".env", nil, 0o666)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func LoadCredentials() Login {
 	err := godotenv.Load(".env")
 	if err != nil {
 		log.Fatal("Error loading .env file")

@@ -8,7 +8,7 @@ import (
 )
 
 func Connect() (*sql.DB, error) {
-	credentials := config.LoadCredetials()
+	credentials := config.LoadCredentials()
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", credentials.User, credentials.Pass, credentials.Ip, credentials.Port, credentials.Name)
 
 	fmt.Println(credentials.Ip, credentials.User, credentials.Ip, credentials.Port, credentials.Name)

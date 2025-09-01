@@ -35,3 +35,20 @@ jobs:
 
     - name: Test
       run: go test -v ./internal/tests
+
+  release:
+    environment:
+      name: production
+      url: https://github.com/${{ github.repository }}/releases/tag/${{ steps.semantic-release.outputs.release-tag }}
+    name: semantic release
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    steps:
+      - name: "checkout repository"
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name:
+
+
