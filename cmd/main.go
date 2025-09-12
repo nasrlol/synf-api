@@ -75,7 +75,7 @@ func main() {
 			resetMigrations()
 		case "start":
 
-			fmt.Println("\033[H\033[2J")
+			fmt.Println("\033[H\033[2J\nSERVER STARTED")
 			r := h.InitRestRoutes()
 			log.Fatal(http.ListenAndServe(":8080", r))
 

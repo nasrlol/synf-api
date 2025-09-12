@@ -15,7 +15,27 @@ type Login struct {
 	Name string
 }
 
-func LoadCredetials() Login {
+func CreateEnvFile() error {
+	err := os.WriteFile(".env", nil, 0o666)
+	if err != nil {
+		return err
+	}
+
+	err = godotenv.Load(".env")
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	os.Setenv("DATABASE_USER", "nasr")
+	os.Setenv("DATABASE_PASSWORD", "root")
+	os.Setenv("DATABASE_IP", "127.0.0.1")
+	os.Setenv("DATABASE_PORT", "3306")
+	os.Setenv("DATABASE_NAME", "synf")
+
+	return nil
+}
+
+func LoadCredentials() Login {
 	err := godotenv.Load(".env")
 	if err != nil {
 		log.Fatal("Error loading .env file")

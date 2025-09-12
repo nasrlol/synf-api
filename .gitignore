@@ -43,7 +43,6 @@
 *.pdb
 
 # Kernel Module Compile Results
-*.mod*
 *.cmd
 .tmp_versions/
 modules.order
@@ -58,3 +57,4 @@ dkms.conf
 .DS_Store
 secret.env
 *.env
+key
