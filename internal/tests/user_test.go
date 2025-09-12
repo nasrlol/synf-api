@@ -9,8 +9,6 @@ import (
 
 	"golang.org/x/crypto/bcrypt"
 
-	"synf/internal/api/handlers"
-
 	"github.com/DATA-DOG/go-sqlmock"
 )
 
@@ -35,7 +33,7 @@ func TestGetUser_Success(t *testing.T) {
 		WillReturnRows(sqlmock.NewRows([]string{"id", "name", "email", "password", "role", "verified"}).
 			AddRow(1, "Test User", "test@example.com", string(hashedPassword), "user", true))
 
-	h := &handlers.Handler{DB: db}
+	h := &handlers.handlers{DB: db}
 
 	body := `{"email":"test@example.com","password":"secret"}`
 	req := httptest.NewRequest(http.MethodPost, "/user", strings.NewReader(body))
@@ -65,7 +63,7 @@ func TestGetUser_WrongPassword(t *testing.T) {
 		WillReturnRows(sqlmock.NewRows([]string{"id", "name", "email", "password", "role", "verified"}).
 			AddRow(1, "Test User", "test@example.com", string(hashedPassword), "user", true))
 
-	h := &handlers.Handler{DB: db}
+	h := &handlers.handlers{DB: db}
 
 	body := `{"email":"test@example.com","password":"wrong"}`
 	req := httptest.NewRequest(http.MethodPost, "/user", strings.NewReader(body))

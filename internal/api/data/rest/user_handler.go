@@ -17,12 +17,6 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-/*
-	body, _ := io.ReadAll(r.Body)
-	fmt.Println("RAW BODY RECEIVED:", string(body))
-	r.Body = io.NopCloser(bytes.NewReader(body)) // reset for decode
-*/
-
 func GetUser(w http.ResponseWriter, r *http.Request) {
 	var request struct {
 		Email    string `json:"email"`
