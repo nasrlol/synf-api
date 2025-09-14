@@ -1,4 +1,4 @@
-// the services package retrieves system information that gets posted by
+// Package services the services package retrieves system information that gets posted by
 // the users device
 package services
 
@@ -38,4 +38,4 @@ func CPUstd(path string, parameter string) <-chan string {
 	return outChan
 }
 
-func CPUpost() {
+// func CPUpost() {}
