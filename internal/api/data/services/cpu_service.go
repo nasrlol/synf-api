@@ -1,3 +1,5 @@
+// the services package retrieves system information that gets posted by
+// the users device
 package services
 
 import (
@@ -6,7 +8,7 @@ import (
 	"os/exec"
 )
 
-func Cpu(path string, parameter string) <-chan string {
+func CPUstd(path string, parameter string) <-chan string {
 	outChan := make(chan string)
 
 	if parameter != "name" {
@@ -35,3 +37,5 @@ func Cpu(path string, parameter string) <-chan string {
 	}
 	return outChan
 }
+
+func CPUpost() {
