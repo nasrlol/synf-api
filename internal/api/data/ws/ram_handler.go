@@ -1,3 +1,4 @@
+// websocket handlers
 package http
 
 import (
@@ -31,7 +32,7 @@ func MakeWsHandler(<-chan string) http.HandlerFunc {
 			}
 		}()
 
-		for dt := range services.Cpu("./cpu", "temperature") {
+		for dt := range services.CPUstd("./cpu", "temperature") {
 			if err := conn.WriteMessage(websocket.TextMessage, []byte(dt)); err != nil {
 				log.Printf("Error writing message over WebSocket: %v\n", err)
 				break
