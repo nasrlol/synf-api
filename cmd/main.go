@@ -15,7 +15,10 @@ import (
 	h "synf/internal/api/routes"
 )
 
-var embedMigrations embed.FS
+var (
+	embedMigrations embed.FS
+	PORT            string
+)
 
 func migrate() {
 	var db *sql.DB
@@ -31,6 +34,7 @@ func migrate() {
 	}
 }
 
+// Reset the database
 func resetMigrations() {
 	var db *sql.DB
 
@@ -61,6 +65,7 @@ func RawConnect(host string, port string) {
 
 func main() {
 	args := os.Args[1:]
+	PORT = ":8080"
 
 	fmt.Println("\033[H\033[2J")
 	if len(args) > 0 {
@@ -76,8 +81,10 @@ func main() {
 		case "start":
 
 			fmt.Println("\033[H\033[2J\nSERVER STARTED")
+			fmt.Printf("Connected on port %s", PORT)
+
 			r := h.InitRestRoutes()
-			log.Fatal(http.ListenAndServe(":8080", r))
+			log.Fatal(http.ListenAndServe(PORT, r))
 
 			// w := h.InitWsRoutes()
 			// log.Fatal(http.ListenAndServe(":8090", w))
