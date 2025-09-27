@@ -3,13 +3,9 @@ package http
 import (
 	"log"
 	"net/http"
-
-	"synf/internal/api/data/services"
-
-	"github.com/gorilla/websocket"
 )
 
-func Cpu(<-chan string) http.HandlerFunc {
+func CPU(<-chan string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		conn, err := upgrader.Upgrade(w, r, nil)
 		if err != nil {
@@ -21,12 +17,5 @@ func Cpu(<-chan string) http.HandlerFunc {
 				log.Printf("Error closing WebSocket connection: %v\n", err)
 			}
 		}()
-
-		for dt := range services.CPUstd("./cpu", "temperature") {
-			if err := conn.WriteMessage(websocket.TextMessage, []byte(dt)); err != nil {
-				log.Printf("Error writing message over WebSocket: %v\n", err)
-				break
-			}
-		}
 	}
 }

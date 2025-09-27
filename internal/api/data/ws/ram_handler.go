@@ -5,8 +5,6 @@ import (
 	"log"
 	"net/http"
 
-	"synf/internal/api/data/services"
-
 	"github.com/gorilla/websocket"
 )
 
@@ -19,7 +17,7 @@ var upgrader = websocket.Upgrader{
 	},
 }
 
-func MakeWsHandler(<-chan string) http.HandlerFunc {
+func RAM(<-chan string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		conn, err := upgrader.Upgrade(w, r, nil)
 		if err != nil {
@@ -32,11 +30,8 @@ func MakeWsHandler(<-chan string) http.HandlerFunc {
 			}
 		}()
 
-		for dt := range services.CPUstd("./cpu", "temperature") {
-			if err := conn.WriteMessage(websocket.TextMessage, []byte(dt)); err != nil {
-				log.Printf("Error writing message over WebSocket: %v\n", err)
-				break
-			}
-		}
+		go func() bool {
+			return true
+		}()
 	}
 }
