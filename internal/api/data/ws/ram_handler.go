@@ -1,4 +1,4 @@
-// websocket handlers
+// Package http websocket handlers
 package http
 
 import (
